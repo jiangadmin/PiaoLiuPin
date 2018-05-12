@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray4"
+    android:orientation="vertical"
+    tools:context=".ui.AboutActivity">
+
+    <com.sy.piaoliupin.ui.TemplateTitle
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:canBack="true"
+        app:titleText="@string/about_title" />
+
+    <com.sy.piaoliupin.ui.LineControllerView
+
+        android:id="@+id/imsdk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:name="@string/about_imsdk" />
+
+    <com.sy.piaoliupin.ui.LineControllerView
+        android:id="@+id/qalsdk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:name="@string/about_qalsdk" />
+
+    <com.sy.piaoliupin.ui.LineControllerView
+        android:id="@+id/tlssdk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:name="@string/about_tlssdk" />
+
+    <com.sy.piaoliupin.ui.LineControllerView
+        android:id="@+id/env"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:canNav="true"
+        app:name="@string/about_env" />
+
+    <com.sy.piaoliupin.ui.LineControllerView
+        android:id="@+id/logLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:canNav="true"
+        app:isBottom="true"
+        app:name="@string/about_log" />
+</LinearLayout>
