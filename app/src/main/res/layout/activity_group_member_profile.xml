@@ -8,12 +8,7 @@
     android:orientation="vertical"
     tools:context="com.sy.piaoliupin.ui.GroupMemberProfileActivity">
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:id="@+id/GroupMemTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:canBack="true"
-        app:titleText="@string/group_member_profile" />
+    <include layout="@layout/view_title_bar"/>
 
     <LinearLayout
         android:layout_width="match_parent"

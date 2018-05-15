@@ -13,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sy.piaoliupin.R;
@@ -21,7 +20,6 @@ import com.sy.piaoliupin.adapters.ExpandGroupListAdapter;
 import com.sy.piaoliupin.model.FriendProfile;
 import com.sy.piaoliupin.model.FriendshipInfo;
 import com.sy.piaoliupin.model.GroupInfo;
-import com.sy.piaoliupin.utils.ToolUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -45,16 +43,16 @@ public class ContactFragment extends Fragment implements View.OnClickListener, O
 
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_contact, container, false);
-            mGroupListView = (ExpandableListView) view.findViewById(R.id.groupList);
-            mNewFriBtn = (LinearLayout) view.findViewById(R.id.btnNewFriend);
+            mGroupListView = view.findViewById(R.id.groupList);
+            mNewFriBtn = view.findViewById(R.id.btnNewFriend);
             mNewFriBtn.setOnClickListener(this);
-            mPublicGroupBtn = (LinearLayout) view.findViewById(R.id.btnPublicGroup);
+            mPublicGroupBtn = view.findViewById(R.id.btnPublicGroup);
             mPublicGroupBtn.setOnClickListener(this);
-            mChatRoomBtn = (LinearLayout) view.findViewById(R.id.btnChatroom);
+            mChatRoomBtn = view.findViewById(R.id.btnChatroom);
             mChatRoomBtn.setOnClickListener(this);
-            mPrivateGroupBtn = (LinearLayout) view.findViewById(R.id.btnPrivateGroup);
+            mPrivateGroupBtn = view.findViewById(R.id.btnPrivateGroup);
             mPrivateGroupBtn.setOnClickListener(this);
-            TemplateTitle title = (TemplateTitle) view.findViewById(R.id.contact_antionbar);
+            TemplateTitle title = view.findViewById(R.id.contact_antionbar);
             title.setMoreImgAction(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -77,22 +75,6 @@ public class ContactFragment extends Fragment implements View.OnClickListener, O
         return view;
     }
 
-    /**
-     * 设置标题
-     *
-     * @param title
-     */
-    public void setTitle(String title) {
-        RelativeLayout titlebar = view.findViewById(R.id.title_bar_tob);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) titlebar.getLayoutParams();
-        //获取状态栏高度 加上 要设置的标题栏高度 等于 标题栏实际高度
-        layoutParams.height = ToolUtils.getStatusHeight() + ToolUtils.dp2px(48);
-        titlebar.setLayoutParams(layoutParams);
-
-        TextView tv = view.findViewById(R.id.title);
-
-        tv.setText(title);
-    }
 
     @Override
     public void onResume() {
@@ -125,9 +107,9 @@ public class ContactFragment extends Fragment implements View.OnClickListener, O
     private void showMoveDialog() {
         inviteDialog = new Dialog(getActivity(), R.style.dialog);
         inviteDialog.setContentView(R.layout.contact_more);
-        addFriend = (TextView) inviteDialog.findViewById(R.id.add_friend);
-        managerGroup = (TextView) inviteDialog.findViewById(R.id.manager_group);
-        addGroup = (TextView) inviteDialog.findViewById(R.id.add_group);
+        addFriend = inviteDialog.findViewById(R.id.add_friend);
+        managerGroup = inviteDialog.findViewById(R.id.manager_group);
+        addGroup = inviteDialog.findViewById(R.id.add_group);
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

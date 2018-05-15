@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,13 +7,7 @@
     android:orientation="vertical"
     tools:context="com.sy.piaoliupin.ui.FriendshipHandleActivity">
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:id="@+id/profile_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:canBack="true"
-        app:titleText="@string/friendship_handle_title" />
+    <include layout="@layout/view_title_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"

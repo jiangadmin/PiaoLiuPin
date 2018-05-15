@@ -3,28 +3,30 @@ package com.sy.piaoliupin.ui;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
+import com.sy.piaoliupin.model.GroupInfo;
+import com.sy.piaoliupin.model.GroupMemberProfile;
+import com.sy.piaoliupin.model.UserInfo;
+import com.sy.piaoliupin.utils.TabToast;
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMGroupMemberRoleType;
 import com.tencent.imsdk.TIMValueCallBack;
 import com.tencent.imsdk.ext.group.TIMGroupManagerExt;
 import com.tencent.imsdk.ext.group.TIMGroupMemberResult;
-import com.sy.piaoliupin.R;
-import com.sy.piaoliupin.model.GroupInfo;
-import com.sy.piaoliupin.model.GroupMemberProfile;
-import com.sy.piaoliupin.model.UserInfo;
 
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 
-public class GroupMemberProfileActivity extends FragmentActivity {
+public class GroupMemberProfileActivity extends Base_Activity {
+    private static final String TAG = "GroupMemberProfileActiv";
 
     private String userIdentify, groupIdentify, userCard, groupType;
     private TIMGroupMemberRoleType currentUserRole;
@@ -36,11 +38,14 @@ public class GroupMemberProfileActivity extends FragmentActivity {
 
     private final int CARD_REQ = 100;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_member_profile);
+
+        setBack(true);
+        setTitle("成员资料");
+
         profile = (GroupMemberProfile) getIntent().getSerializableExtra("data");
         userIdentify = profile.getIdentify();
         groupIdentify = getIntent().getStringExtra("groupId");
@@ -54,17 +59,10 @@ public class GroupMemberProfileActivity extends FragmentActivity {
                 getString(R.string.group_member_quiet_one_hour),
                 getString(R.string.group_member_quiet_one_day),
         };
-        TemplateTitle title = (TemplateTitle) findViewById(R.id.GroupMemTitle);
-        title.setBackListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setBackResult(false);
-                finish();
-            }
-        });
-        TextView tvName = (TextView) findViewById(R.id.name);
+
+        TextView tvName = findViewById(R.id.name);
         tvName.setText(userIdentify);
-        TextView tvKick = (TextView) findViewById(R.id.kick);
+        TextView tvKick = findViewById(R.id.kick);
         tvKick.setVisibility(canManage() && !groupType.equals(GroupInfo.privateGroup) ? View.VISIBLE : View.GONE);
         tvKick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,23 +72,23 @@ public class GroupMemberProfileActivity extends FragmentActivity {
                 TIMGroupManagerExt.getInstance().deleteGroupMember(param, new TIMValueCallBack<List<TIMGroupMemberResult>>() {
                     @Override
                     public void onError(int i, String s) {
-                        Toast.makeText(GroupMemberProfileActivity.this, getString(R.string.group_member_del_err), Toast.LENGTH_SHORT).show();
+                        TabToast.makeText(getString(R.string.group_member_del_err));
                     }
 
                     @Override
                     public void onSuccess(List<TIMGroupMemberResult> timGroupMemberResults) {
-                        Toast.makeText(GroupMemberProfileActivity.this, getString(R.string.group_member_del_succ), Toast.LENGTH_SHORT).show();
+                        TabToast.makeText(getString(R.string.group_member_del_succ));
                         setBackResult(true);
                         finish();
                     }
                 });
             }
         });
-        setManager = (LineControllerView) findViewById(R.id.manager);
+        setManager = findViewById(R.id.manager);
         setManager.setVisibility(currentUserRole == TIMGroupMemberRoleType.Owner && currentUserRole != profile.getRole() && !groupType.equals(GroupInfo.privateGroup) ? View.VISIBLE : View.GONE);
         setManager.setSwitch(profile.getRole() == TIMGroupMemberRoleType.Admin);
         setManager.setCheckListener(checkListener);
-        final LineControllerView setQuiet = (LineControllerView) findViewById(R.id.setQuiet);
+        final LineControllerView setQuiet = findViewById(R.id.setQuiet);
         setQuiet.setVisibility(canManage() && !groupType.equals(GroupInfo.privateGroup) ? View.VISIBLE : View.GONE);
         if (canManage()) {
             if (isQuiet()) {
@@ -130,7 +128,7 @@ public class GroupMemberProfileActivity extends FragmentActivity {
                 }
             });
         }
-        LineControllerView nameCard = (LineControllerView) findViewById(R.id.groupCard);
+        LineControllerView nameCard = findViewById(R.id.groupCard);
         nameCard.setContent(userCard);
         if (UserInfo.getInstance().getId().equals(userIdentify)) {
             nameCard.setCanNav(true);
@@ -198,10 +196,10 @@ public class GroupMemberProfileActivity extends FragmentActivity {
                         public void onError(int i, String s) {
                             switch (i) {
                                 case 10004:
-                                    Toast.makeText(GroupMemberProfileActivity.this, getString(R.string.group_member_manage_set_type_err), Toast.LENGTH_SHORT).show();
+                                    TabToast.makeText(getString(R.string.group_member_manage_set_type_err));
                                     break;
                                 default:
-                                    Toast.makeText(GroupMemberProfileActivity.this, getString(R.string.group_member_manage_set_err), Toast.LENGTH_SHORT).show();
+                                    TabToast.makeText(getString(R.string.group_member_manage_set_err));
                                     break;
                             }
                             //防止循环调用
@@ -212,7 +210,7 @@ public class GroupMemberProfileActivity extends FragmentActivity {
 
                         @Override
                         public void onSuccess() {
-                            Toast.makeText(GroupMemberProfileActivity.this, getString(R.string.group_member_manage_set_succ), Toast.LENGTH_SHORT).show();
+                            TabToast.makeText(getString(R.string.group_member_manage_set_succ));
                             profile.setRoleType(isChecked ? TIMGroupMemberRoleType.Admin : TIMGroupMemberRoleType.Normal);
                         }
                     });
@@ -224,7 +222,7 @@ public class GroupMemberProfileActivity extends FragmentActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CARD_REQ) {
             if (resultCode == RESULT_OK) {
-                LineControllerView nameCard = (LineControllerView) findViewById(R.id.groupCard);
+                LineControllerView nameCard =  findViewById(R.id.groupCard);
                 nameCard.setContent(data.getStringExtra(EditActivity.RETURN_EXTRA));
                 profile.setName(data.getStringExtra(EditActivity.RETURN_EXTRA));
             }

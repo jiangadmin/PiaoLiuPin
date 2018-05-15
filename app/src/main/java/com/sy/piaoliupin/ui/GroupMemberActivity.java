@@ -1,6 +1,5 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,26 +7,26 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.tencent.imsdk.TIMGroupMemberInfo;
-import com.tencent.imsdk.TIMValueCallBack;
-import com.tencent.imsdk.ext.group.TIMGroupManagerExt;
-import com.tencent.imsdk.ext.group.TIMGroupMemberResult;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.adapters.ProfileSummaryAdapter;
 import com.sy.piaoliupin.model.GroupInfo;
 import com.sy.piaoliupin.model.GroupMemberProfile;
 import com.sy.piaoliupin.model.ProfileSummary;
 import com.sy.piaoliupin.presenter.GroupManagerPresenter;
+import com.tencent.imsdk.TIMGroupMemberInfo;
+import com.tencent.imsdk.TIMValueCallBack;
+import com.tencent.imsdk.ext.group.TIMGroupManagerExt;
+import com.tencent.imsdk.ext.group.TIMGroupMemberResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupMemberActivity extends Activity implements TIMValueCallBack<List<TIMGroupMemberInfo>> {
+public class GroupMemberActivity extends Base_Activity implements View.OnClickListener, TIMValueCallBack<List<TIMGroupMemberInfo>> {
 
     ProfileSummaryAdapter adapter;
     List<ProfileSummary> list = new ArrayList<>();
     ListView listView;
-    TemplateTitle title;
     String groupId, type;
     private final int MEM_REQ = 100;
     private final int CHOOSE_MEM_CODE = 200;
@@ -37,7 +36,10 @@ public class GroupMemberActivity extends Activity implements TIMValueCallBack<Li
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_member);
-        title = findViewById(R.id.group_mem_title);
+
+        setBack(true);
+        setTitle("群成员");
+
         groupId = getIntent().getStringExtra("id");
         type = getIntent().getStringExtra("type");
         listView = findViewById(R.id.list);
@@ -56,20 +58,9 @@ public class GroupMemberActivity extends Activity implements TIMValueCallBack<Li
                 startActivityForResult(intent, MEM_REQ);
             }
         });
+
         if (type.equals(GroupInfo.privateGroup)) {
-            title.setMoreImg(R.drawable.ic_add);
-            title.setMoreImgAction(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(GroupMemberActivity.this, ChooseFriendActivity.class);
-                    ArrayList<String> selected = new ArrayList<>();
-                    for (ProfileSummary profile : list) {
-                        selected.add(profile.getIdentify());
-                    }
-                    intent.putStringArrayListExtra("selected", selected);
-                    startActivityForResult(intent, CHOOSE_MEM_CODE);
-                }
-            });
+            setMenu(R.drawable.ic_add);
         }
     }
 
@@ -128,4 +119,18 @@ public class GroupMemberActivity extends Activity implements TIMValueCallBack<Li
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.menu:
+                Intent intent = new Intent(this, ChooseFriendActivity.class);
+                ArrayList<String> selected = new ArrayList<>();
+                for (ProfileSummary profile : list) {
+                    selected.add(profile.getIdentify());
+                }
+                intent.putStringArrayListExtra("selected", selected);
+                startActivityForResult(intent, CHOOSE_MEM_CODE);
+                break;
+        }
+    }
 }

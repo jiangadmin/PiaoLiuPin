@@ -177,7 +177,28 @@ public class Base_Activity extends FragmentActivity {
      */
     public void setTitle(String title) {
         RelativeLayout titlebar = findViewById(R.id.title_bar_tob);
+
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) titlebar.getLayoutParams();
+        //获取状态栏高度 加上 要设置的标题栏高度 等于 标题栏实际高度
+        layoutParams.height = ToolUtils.getStatusHeight() + ToolUtils.dp2px(48);
+        titlebar.setLayoutParams(layoutParams);
+
+
+        TextView tv = findViewById(R.id.title);
+
+        tv.setText(title);
+    }
+
+
+    /**
+     * 设置标题
+     *
+     * @param title
+     */
+    public void setRTitle(String title) {
+        RelativeLayout titlebar = findViewById(R.id.title_bar_tob);
+
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) titlebar.getLayoutParams();
         //获取状态栏高度 加上 要设置的标题栏高度 等于 标题栏实际高度
         layoutParams.height = ToolUtils.getStatusHeight() + ToolUtils.dp2px(48);
         titlebar.setLayoutParams(layoutParams);
@@ -186,6 +207,7 @@ public class Base_Activity extends FragmentActivity {
 
         tv.setText(title);
     }
+
 
     /**
      * 是否有返回键

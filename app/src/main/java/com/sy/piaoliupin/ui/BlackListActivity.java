@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.tencent.imsdk.TIMUserProfile;
 import com.tencent.imsdk.TIMValueCallBack;
 import com.tencent.imsdk.ext.sns.TIMFriendshipManagerExt;
@@ -18,7 +19,7 @@ import com.sy.piaoliupin.utils.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackListActivity extends Activity {
+public class BlackListActivity extends Base_Activity {
 
     private final String TAG = "BlackListActivity";
 
@@ -30,6 +31,10 @@ public class BlackListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_black_list);
+
+        setBack(true);
+        setTitle("黑名单");
+
         listView = findViewById(R.id.list);
         adapter = new ProfileSummaryAdapter(this, R.layout.item_profile_summary, list);
         listView.setAdapter(adapter);

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.tencent.imsdk.TIMLogLevel;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.qalsdk.QALSDKManager;
@@ -19,13 +20,18 @@ import tencent.tls.platform.TLSHelper;
  * 关于
  */
 
-public class AboutActivity extends FragmentActivity {
+public class AboutActivity extends Base_Activity {
     private static final String TAG = "AboutActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        setBack(true);
+        setTitle("关于");
+
+
         LineControllerView imsdk = findViewById(R.id.imsdk);
         imsdk.setContent(TIMManager.getInstance().getVersion());
         LineControllerView qalsdk = findViewById(R.id.qalsdk);

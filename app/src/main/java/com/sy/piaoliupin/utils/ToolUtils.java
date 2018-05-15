@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.sy.piaoliupin.MyApplication;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -380,6 +382,28 @@ public class ToolUtils {
         } else {
             TabToast.makeText("复制内容为空");
         }
+    }
+
+    public static String getMyUUID(Context context){
+
+        final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
+        final String tmDevice, tmSerial, tmPhone, androidId;
+
+        tmDevice = "" + tm.getDeviceId();
+
+        tmSerial = "" + tm.getSimSerialNumber();
+
+        androidId = "" + android.provider.Settings.Secure.getString(context.getContentResolver(),android.provider.Settings.Secure.ANDROID_ID);
+
+        UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
+
+        String uniqueId = deviceUuid.toString();
+
+        LogUtil.e("debug","uuid="+uniqueId);
+
+        return uniqueId;
+
     }
 
 

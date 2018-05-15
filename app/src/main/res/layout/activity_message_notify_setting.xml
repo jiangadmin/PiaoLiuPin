@@ -6,14 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_gray4"
-
     tools:context="com.sy.piaoliupin.ui.MessageNotifySettingActivity">
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:canBack="true"
-        app:titleText="@string/message_notify_title" />
+    <include layout="@layout/view_title_bar"/>
 
     <com.sy.piaoliupin.ui.LineControllerView
         android:id="@+id/messagePush"

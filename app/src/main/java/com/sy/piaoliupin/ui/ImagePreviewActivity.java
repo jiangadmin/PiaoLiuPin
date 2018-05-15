@@ -1,6 +1,5 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,14 +9,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
+import com.sy.piaoliupin.utils.TabToast;
 
 import java.io.File;
 import java.io.IOException;
 
-public class ImagePreviewActivity extends Activity {
+/**
+ * TODO: 图片预览
+ */
+
+public class ImagePreviewActivity extends Base_Activity implements View.OnClickListener {
+    private static final String TAG = "ImagePreviewActivity";
 
     private String path;
     private CheckBox isOri;
@@ -26,19 +31,14 @@ public class ImagePreviewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_preview);
+
+        setBack(true);
+        setTitle("图片预览");
+        setMenu("发送");
+
         path = getIntent().getStringExtra("path");
-        isOri = (CheckBox) findViewById(R.id.isOri);
-        TemplateTitle title = (TemplateTitle) findViewById(R.id.imagePreviewTitle);
-        title.setMoreTextAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("path", path);
-                intent.putExtra("isOri", isOri.isChecked());
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+        isOri = findViewById(R.id.isOri);
+
         showImage();
 
     }
@@ -97,7 +97,7 @@ public class ImagePreviewActivity extends Activity {
                 ImageView imageView = (ImageView) findViewById(R.id.image);
                 imageView.setImageBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mat, true));
             } catch (IOException e) {
-                Toast.makeText(this, getString(R.string.chat_image_preview_load_err), Toast.LENGTH_SHORT).show();
+                TabToast.makeText(getString(R.string.chat_image_preview_load_err));
             }
         } else {
             finish();
@@ -117,4 +117,16 @@ public class ImagePreviewActivity extends Activity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.menu:
+                Intent intent = new Intent();
+                intent.putExtra("path", path);
+                intent.putExtra("isOri", isOri.isChecked());
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+        }
+    }
 }

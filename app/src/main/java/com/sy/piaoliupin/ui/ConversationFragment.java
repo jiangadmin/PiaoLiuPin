@@ -38,8 +38,6 @@ import com.tencent.imsdk.ext.group.TIMGroupCacheInfo;
 import com.tencent.imsdk.ext.group.TIMGroupPendencyItem;
 import com.tencent.imsdk.ext.sns.TIMFriendFutureItem;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -63,8 +61,6 @@ public class ConversationFragment extends Fragment implements ConversationView, 
     private List<String> groupList;
     private FriendshipConversation friendshipConversation;
     private GroupManageConversation groupManageConversation;
-
-
 
 
     public ConversationFragment() {
@@ -101,22 +97,6 @@ public class ConversationFragment extends Fragment implements ConversationView, 
 
     }
 
-    /**
-     * 设置标题
-     *
-     * @param title
-     */
-    public void setTitle(String title) {
-        RelativeLayout titlebar = view.findViewById(R.id.title_bar_tob);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) titlebar.getLayoutParams();
-        //获取状态栏高度 加上 要设置的标题栏高度 等于 标题栏实际高度
-        layoutParams.height = ToolUtils.getStatusHeight() + ToolUtils.dp2px(48);
-        titlebar.setLayoutParams(layoutParams);
-
-        TextView tv = view.findViewById(R.id.title);
-
-        tv.setText(title);
-    }
 
     @Override
     public void onResume() {
@@ -149,6 +129,24 @@ public class ConversationFragment extends Fragment implements ConversationView, 
 
         setTitle("会话");
     }
+
+    /**
+     * 设置标题
+     *
+     * @param title
+     */
+    public void setTitle(String title) {
+        RelativeLayout titlebar = view.findViewById(R.id.title_bar_tob);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) titlebar.getLayoutParams();
+        //获取状态栏高度 加上 要设置的标题栏高度 等于 标题栏实际高度
+        layoutParams.height = ToolUtils.getStatusHeight() + ToolUtils.dp2px(48);
+        titlebar.setLayoutParams(layoutParams);
+
+        TextView tv = view.findViewById(R.id.title);
+
+        tv.setText(title);
+    }
+
 
     /**
      * 更新最新消息显示

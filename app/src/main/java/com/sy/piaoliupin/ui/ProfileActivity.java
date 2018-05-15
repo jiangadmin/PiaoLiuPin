@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMValueCallBack;
@@ -27,7 +28,7 @@ import com.sy.piaoliupin.viewfeatures.FriendshipManageView;
 import java.util.Collections;
 import java.util.List;
 
-public class ProfileActivity extends FragmentActivity implements FriendshipManageView, View.OnClickListener {
+public class ProfileActivity extends Base_Activity implements FriendshipManageView, View.OnClickListener {
 
 
     private static final String TAG = ProfileActivity.class.getSimpleName();
@@ -50,6 +51,10 @@ public class ProfileActivity extends FragmentActivity implements FriendshipManag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        setTitle("详细资料");
+        setBack(true);
+
         identify = getIntent().getStringExtra("identify");
         friendshipManagerPresenter = new FriendshipManagerPresenter(this);
         showProfile(identify);

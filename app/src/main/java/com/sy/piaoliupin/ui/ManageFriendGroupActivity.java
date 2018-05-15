@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMValueCallBack;
 import com.tencent.imsdk.ext.sns.TIMFriendResult;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * 好友分组管理
  */
-public class ManageFriendGroupActivity extends FragmentActivity implements View.OnClickListener {
+public class ManageFriendGroupActivity extends Base_Activity implements View.OnClickListener {
 
     private final String TAG = ManageFriendGroupActivity.class.getSimpleName();
 
@@ -43,6 +44,10 @@ public class ManageFriendGroupActivity extends FragmentActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manager_group);
+
+        setBack(true);
+        setTitle("分组管理");
+
         mMyGroupList = findViewById(R.id.group_list);
         mAddGroup = findViewById(R.id.add_group);
         mAddGroup.setOnClickListener(this);

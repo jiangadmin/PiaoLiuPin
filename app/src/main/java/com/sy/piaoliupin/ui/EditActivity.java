@@ -7,10 +7,10 @@ import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.tencent.imsdk.TIMCallBack;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.utils.TabToast;
+import com.tencent.imsdk.TIMCallBack;
 
 /**
  * 修改文本页面
@@ -104,7 +104,7 @@ public class EditActivity extends Activity implements TIMCallBack {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-        getIntent().getStringExtra("title");
+
         input = findViewById(R.id.editContent);
         if (defaultString != null) {
             input.setText(defaultString);
@@ -135,7 +135,7 @@ public class EditActivity extends Activity implements TIMCallBack {
 
     @Override
     public void onError(int i, String s) {
-        Toast.makeText(this, getResources().getString(R.string.edit_error), Toast.LENGTH_SHORT).show();
+        TabToast.makeText(getResources().getString(R.string.edit_error));
     }
 
     @Override

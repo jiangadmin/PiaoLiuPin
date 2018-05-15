@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.utils.TabToast;
+import com.sy.piaoliupin.utils.ToolUtils;
 import com.tencent.imsdk.TIMManager;
 import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.event.MessageEvent;
@@ -46,6 +47,7 @@ public class HomeActivity extends Base_Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        ToolUtils.getMyUUID(this);
         setDarkStatusIcon(false);
         if (requestPermission()) {
             Intent intent = new Intent(HomeActivity.this, SplashActivity.class);

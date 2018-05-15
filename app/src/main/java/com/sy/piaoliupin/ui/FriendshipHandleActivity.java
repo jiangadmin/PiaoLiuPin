@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.tencent.imsdk.TIMValueCallBack;
 import com.tencent.imsdk.ext.sns.TIMFriendResult;
 import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.presenter.FriendshipManagerPresenter;
 
-public class FriendshipHandleActivity extends Activity implements View.OnClickListener {
+public class FriendshipHandleActivity extends Base_Activity implements View.OnClickListener {
 
     private String id;
 
@@ -20,6 +21,10 @@ public class FriendshipHandleActivity extends Activity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friendship_handle);
+
+        setTitle("申请详情");
+        setBack(true);
+
         id = getIntent().getStringExtra("id");
         TextView tvName = findViewById(R.id.name);
         tvName.setText(id);

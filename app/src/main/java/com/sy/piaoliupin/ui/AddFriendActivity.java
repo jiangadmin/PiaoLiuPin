@@ -2,19 +2,19 @@ package com.sy.piaoliupin.ui;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tencent.imsdk.TIMValueCallBack;
-import com.tencent.imsdk.ext.sns.TIMFriendResult;
-import com.tencent.imsdk.ext.sns.TIMFriendStatus;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.model.FriendshipInfo;
 import com.sy.piaoliupin.presenter.FriendshipManagerPresenter;
 import com.sy.piaoliupin.viewfeatures.FriendshipManageView;
+import com.tencent.imsdk.TIMValueCallBack;
+import com.tencent.imsdk.ext.sns.TIMFriendResult;
+import com.tencent.imsdk.ext.sns.TIMFriendStatus;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * 申请添加好友界面
  */
-public class AddFriendActivity extends FragmentActivity implements View.OnClickListener, FriendshipManageView {
+public class AddFriendActivity extends Base_Activity implements View.OnClickListener, FriendshipManageView {
 
 
     private TextView tvName, btnAdd;
@@ -35,16 +35,20 @@ public class AddFriendActivity extends FragmentActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
-        tvName = (TextView) findViewById(R.id.name);
-        idField = (LineControllerView) findViewById(R.id.id);
+
+        setBack(true);
+        setTitle("添加好友");
+
+        tvName = findViewById(R.id.name);
+        idField = findViewById(R.id.id);
         id = getIntent().getStringExtra("id");
         tvName.setText(getIntent().getStringExtra("name"));
         idField.setContent(id);
-        groupField = (LineControllerView) findViewById(R.id.group);
-        btnAdd = (TextView) findViewById(R.id.btnAdd);
+        groupField = findViewById(R.id.group);
+        btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
-        editMessage = (EditText) findViewById(R.id.editMessage);
-        editRemark = (EditText) findViewById(R.id.editNickname);
+        editMessage = findViewById(R.id.editMessage);
+        editRemark = findViewById(R.id.editNickname);
         presenter = new FriendshipManagerPresenter(this);
     }
 

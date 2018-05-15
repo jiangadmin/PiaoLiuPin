@@ -1,23 +1,26 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.adapters.ExpandGroupListAdapter;
 import com.sy.piaoliupin.model.FriendProfile;
 import com.sy.piaoliupin.model.FriendshipInfo;
+import com.sy.piaoliupin.utils.TabToast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ChooseFriendActivity extends Activity {
+/**
+ * TODO: 选择联系人
+ */
 
+public class ChooseFriendActivity extends Base_Activity implements View.OnClickListener {
 
     private ExpandGroupListAdapter mGroupListAdapter;
     private ExpandableListView mGroupListView;
@@ -29,24 +32,18 @@ public class ChooseFriendActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_friend);
-        TemplateTitle title =  findViewById(R.id.chooseTitle);
+
+        setBack(true);
+        setTitle("选择联系人");
+        setMenu("确定");
+
+
         List<String> selected = getIntent().getStringArrayListExtra("selected");
         if (selected != null) {
             mAlreadySelect.addAll(selected);
         }
-        title.setMoreTextAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectList.size() == 0) {
-                    Toast.makeText(ChooseFriendActivity.this, getString(R.string.choose_need_one), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Intent intent = new Intent();
-                intent.putStringArrayListExtra("select", getSelectIds());
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+
+
         final Map<String, List<FriendProfile>> friends = FriendshipInfo.getInstance().getFriends();
         for (String id : mAlreadySelect) {
             for (String key : friends.keySet()) {
@@ -58,7 +55,7 @@ public class ChooseFriendActivity extends Activity {
                 }
             }
         }
-        mGroupListView =  findViewById(R.id.groupList);
+        mGroupListView = findViewById(R.id.groupList);
         mGroupListAdapter = new ExpandGroupListAdapter(this, FriendshipInfo.getInstance().getGroups(), friends, true);
         mGroupListView.setAdapter(mGroupListAdapter);
         mGroupListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -101,5 +98,22 @@ public class ChooseFriendActivity extends Activity {
             result.add(item.getIdentify());
         }
         return result;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.menu:
+
+                if (selectList.size() == 0) {
+                    TabToast.makeText(getString(R.string.choose_need_one));
+                    return;
+                }
+                Intent intent = new Intent();
+                intent.putStringArrayListExtra("select", getSelectIds());
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+        }
     }
 }

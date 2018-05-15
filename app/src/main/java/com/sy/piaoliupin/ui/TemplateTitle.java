@@ -25,7 +25,6 @@ public class TemplateTitle extends RelativeLayout {
     private int moreImg;
     private TextView tvMore;
 
-
     public TemplateTitle(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.title, this);

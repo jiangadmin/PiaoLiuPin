@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background_gray4"
+    android:orientation="vertical"
     tools:context="com.sy.piaoliupin.ui.ApplyGroupActivity">
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:id="@+id/apply_group_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:canBack="true"
-        app:titleText="@string/chat_setting_add" />
+    <include layout="@layout/view_title_bar" />
 
     <TextView
         android:id="@+id/description"

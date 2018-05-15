@@ -4,19 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background_gray4"
-
+    android:orientation="vertical"
     tools:context="com.sy.piaoliupin.ui.ProfileActivity">
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:id="@+id/profile_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:backText="@string/profile_back"
-        app:canBack="true"
-        app:titleText="@string/profile_detail" />
+    <include layout="@layout/view_title_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"

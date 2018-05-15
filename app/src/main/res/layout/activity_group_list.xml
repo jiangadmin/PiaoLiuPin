@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,13 +7,7 @@
     android:orientation="vertical"
     tools:context="com.sy.piaoliupin.ui.GroupListActivity">
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:id="@+id/groupListTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:canBack="true"
-        app:moreImg="@drawable/ic_add_more" />
-
+    <include layout="@layout/view_title_bar" />
 
     <ListView
         android:id="@id/list"

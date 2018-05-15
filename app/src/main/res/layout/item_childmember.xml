@@ -5,7 +5,7 @@
     android:gravity="center_vertical"
     android:minHeight="50dp">
 
-    <com.sy.piaoliupin.ui.CircleImageViewø
+    <com.sy.piaoliupin.ui.CircleImageView
         android:id="@+id/avatar"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -29,4 +29,5 @@
         android:layout_height="15dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/unselected" />
+
 </LinearLayout>

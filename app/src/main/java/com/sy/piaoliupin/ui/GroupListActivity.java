@@ -1,26 +1,26 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.tencent.imsdk.ext.group.TIMGroupCacheInfo;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.adapters.ProfileSummaryAdapter;
 import com.sy.piaoliupin.event.GroupEvent;
 import com.sy.piaoliupin.model.GroupInfo;
 import com.sy.piaoliupin.model.GroupProfile;
 import com.sy.piaoliupin.model.ProfileSummary;
+import com.tencent.imsdk.ext.group.TIMGroupCacheInfo;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class GroupListActivity extends Activity implements Observer {
+public class GroupListActivity extends Base_Activity implements Observer, View.OnClickListener {
 
     private ProfileSummaryAdapter adapter;
     private ListView listView;
@@ -45,15 +45,7 @@ public class GroupListActivity extends Activity implements Observer {
                 list.get(position).onClick(GroupListActivity.this);
             }
         });
-        TemplateTitle title = findViewById(R.id.groupListTitle);
-        title.setMoreTextAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GroupListActivity.this, CreateGroupActivity.class);
-                intent.putExtra("type", type);
-                startActivityForResult(intent, CREATE_GROUP_CODE);
-            }
-        });
+
         GroupEvent.getInstance().addObserver(this);
 
     }
@@ -65,16 +57,10 @@ public class GroupListActivity extends Activity implements Observer {
     }
 
     private void setTitle() {
-        TemplateTitle title = (TemplateTitle) findViewById(R.id.groupListTitle);
-        title.setTitleText(GroupInfo.getTypeName(type));
-        title.setMoreImgAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GroupListActivity.this, CreateGroupActivity.class);
-                intent.putExtra("type", type);
-                startActivity(intent);
-            }
-        });
+        setBack(true);
+        setTitle(GroupInfo.getTypeName(type));
+        setMenu(R.drawable.ic_add);
+
     }
 
 
@@ -131,5 +117,16 @@ public class GroupListActivity extends Activity implements Observer {
     private void updateGroup(TIMGroupCacheInfo info) {
         delGroup(info.getGroupInfo().getGroupId());
         addGroup(info);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.menu:
+                Intent intent = new Intent(GroupListActivity.this, CreateGroupActivity.class);
+                intent.putExtra("type", type);
+                startActivity(intent);
+                break;
+        }
     }
 }

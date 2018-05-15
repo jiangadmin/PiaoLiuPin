@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context="com.sy.piaoliupin.ui.ImagePreviewActivity">
+    tools:context=".ui.ImagePreviewActivity">
 
     <ImageView
         android:id="@+id/image"
@@ -14,14 +13,7 @@
         android:layout_centerInParent="true"
         android:scaleType="centerCrop" />
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:id="@+id/imagePreviewTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:canBack="true"
-        app:moreText="@string/chat_image_preview_send"
-        app:titleText="@string/chat_image_preview_title" />
+    <include layout="@layout/view_title_bar" />
 
     <LinearLayout
         android:id="@+id/buttonPanel"
@@ -40,4 +32,5 @@
             android:text="@string/chat_image_preview_ori"
             android:textSize="18sp" />
     </LinearLayout>
+
 </RelativeLayout>

@@ -1,16 +1,16 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 
+import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMOfflinePushSettings;
 import com.tencent.imsdk.TIMValueCallBack;
-import com.sy.piaoliupin.R;
 
-public class MessageNotifySettingActivity extends Activity {
+public class MessageNotifySettingActivity extends Base_Activity {
 
     private String TAG = "MessageNotifySettingActivity";
     TIMOfflinePushSettings settings;
@@ -19,6 +19,10 @@ public class MessageNotifySettingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_notify_setting);
+
+        setTitle("消息提醒");
+        setBack(true);
+
         final Uri notifyMusic = Uri.parse("android.resource://com.tencent.qcloud.timchat/" + R.raw.dudulu);
         TIMManager.getInstance().getOfflinePushSettings(new TIMValueCallBack<TIMOfflinePushSettings>() {
             @Override

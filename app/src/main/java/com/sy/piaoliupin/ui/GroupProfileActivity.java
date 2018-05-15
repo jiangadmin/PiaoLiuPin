@@ -3,12 +3,19 @@ package com.sy.piaoliupin.ui;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
+import com.sy.piaoliupin.model.GroupInfo;
+import com.sy.piaoliupin.model.UserInfo;
+import com.sy.piaoliupin.presenter.GroupInfoPresenter;
+import com.sy.piaoliupin.presenter.GroupManagerPresenter;
+import com.sy.piaoliupin.utils.LogUtil;
+import com.sy.piaoliupin.viewfeatures.GroupInfoView;
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMGroupAddOpt;
@@ -16,13 +23,6 @@ import com.tencent.imsdk.TIMGroupMemberRoleType;
 import com.tencent.imsdk.TIMGroupReceiveMessageOpt;
 import com.tencent.imsdk.ext.group.TIMGroupDetailInfo;
 import com.tencent.imsdk.ext.group.TIMGroupManagerExt;
-import com.sy.piaoliupin.R;
-import com.sy.piaoliupin.model.GroupInfo;
-import com.sy.piaoliupin.model.UserInfo;
-import com.sy.piaoliupin.presenter.GroupInfoPresenter;
-import com.sy.piaoliupin.presenter.GroupManagerPresenter;
-import com.sy.piaoliupin.utils.LogUtil;
-import com.sy.piaoliupin.viewfeatures.GroupInfoView;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class GroupProfileActivity extends FragmentActivity implements GroupInfoView, View.OnClickListener {
+public class GroupProfileActivity extends Base_Activity implements GroupInfoView, View.OnClickListener {
 
     private final String TAG = "GroupProfileActivity";
 
@@ -50,6 +50,10 @@ public class GroupProfileActivity extends FragmentActivity implements GroupInfoV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat_setting);
+
+        setTitle("聊天设置");
+        setBack(true);
+
         identify = getIntent().getStringExtra("identify");
         isInGroup = GroupInfo.getInstance().isInGroup(identify);
         groupInfoPresenter = new GroupInfoPresenter(this, Collections.singletonList(identify), isInGroup);

@@ -69,8 +69,6 @@ public class Base_Dialog extends Dialog {
 
         setContentView(R.layout.dialog_base);
 
-        initview();
-
     }
 
 

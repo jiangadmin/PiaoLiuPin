@@ -1,18 +1,18 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tencent.imsdk.TIMCallBack;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.presenter.GroupManagerPresenter;
 import com.sy.piaoliupin.utils.TabToast;
+import com.tencent.imsdk.TIMCallBack;
 
-public class ApplyGroupActivity extends Activity implements TIMCallBack {
+public class ApplyGroupActivity extends Base_Activity implements TIMCallBack {
 
     private final String TAG = "ApplyGroupActivity";
 
@@ -23,6 +23,10 @@ public class ApplyGroupActivity extends Activity implements TIMCallBack {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_group);
+
+        setBack(true);
+        setTitle("申请加群");
+
         identify = getIntent().getStringExtra("identify");
         TextView des = findViewById(R.id.description);
         des.setText("申请加入 " + identify);

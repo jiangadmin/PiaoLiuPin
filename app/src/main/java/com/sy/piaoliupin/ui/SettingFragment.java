@@ -150,7 +150,6 @@ public class SettingFragment extends Fragment implements FriendInfoView {
         return view;
     }
 
-
     /**
      * 设置标题
      *
@@ -167,6 +166,7 @@ public class SettingFragment extends Fragment implements FriendInfoView {
 
         tv.setText(title);
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

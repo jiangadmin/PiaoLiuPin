@@ -8,13 +8,7 @@
     android:orientation="vertical"
     tools:context="com.sy.piaoliupin.ui.GroupProfileActivity">
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:id="@+id/chat_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:canBack="true"
-        app:titleText="@string/chat_setting_title" />
+    <include layout="@layout/view_title_bar"/>
 
     <com.sy.piaoliupin.ui.LineControllerView
         android:id="@+id/idText"

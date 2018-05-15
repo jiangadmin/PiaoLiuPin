@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.tencent.imsdk.ext.sns.TIMFriendFutureItem;
 import com.tencent.imsdk.ext.sns.TIMFutureFriendType;
 import com.sy.piaoliupin.R;
@@ -18,7 +19,7 @@ import com.sy.piaoliupin.viewfeatures.FriendshipMessageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendshipManageMessageActivity extends Activity implements FriendshipMessageView {
+public class FriendshipManageMessageActivity extends Base_Activity implements FriendshipMessageView {
 
 
     private final String TAG = FriendshipManageMessageActivity.class.getSimpleName();
@@ -34,6 +35,10 @@ public class FriendshipManageMessageActivity extends Activity implements Friends
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friendship_manage_message);
+
+        setTitle("新朋友");
+        setBack(true);
+
         listView = findViewById(R.id.list);
         adapter = new FriendManageMessageAdapter(this, R.layout.item_two_line, list);
         listView.setAdapter(adapter);

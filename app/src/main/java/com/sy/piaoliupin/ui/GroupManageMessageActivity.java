@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.tencent.imsdk.ext.group.TIMGroupPendencyItem;
 import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.adapters.GroupManageMessageAdapter;
@@ -14,7 +15,7 @@ import com.sy.piaoliupin.viewfeatures.GroupManageMessageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupManageMessageActivity extends Activity implements GroupManageMessageView {
+public class GroupManageMessageActivity extends Base_Activity implements GroupManageMessageView {
 
     private final String TAG = "GroupManageMessageActivity";
     private GroupManagerPresenter presenter;
@@ -27,6 +28,10 @@ public class GroupManageMessageActivity extends Activity implements GroupManageM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_manage_message);
+
+        setBack(true);
+        setTitle("群组消息");
+
         presenter = new GroupManagerPresenter(this);
         presenter.getGroupManageMessage(PAGE_SIZE);
         listView = findViewById(R.id.list);

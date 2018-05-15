@@ -8,11 +8,7 @@
     android:orientation="vertical"
     tools:context=".ui.AboutActivity">
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:canBack="true"
-        app:titleText="@string/about_title" />
+    <include layout="@layout/view_title_bar"/>
 
     <com.sy.piaoliupin.ui.LineControllerView
 

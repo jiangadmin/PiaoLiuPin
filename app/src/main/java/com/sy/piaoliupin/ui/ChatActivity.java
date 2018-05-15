@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,13 +18,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.tencent.imsdk.TIMConversationType;
-import com.tencent.imsdk.TIMMessage;
-import com.tencent.imsdk.TIMMessageStatus;
-import com.tencent.imsdk.ext.message.TIMMessageDraft;
-import com.tencent.imsdk.ext.message.TIMMessageExt;
-import com.tencent.imsdk.ext.message.TIMMessageLocator;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.adapters.ChatAdapter;
 import com.sy.piaoliupin.model.CustomMessage;
 import com.sy.piaoliupin.model.FileMessage;
@@ -45,12 +39,18 @@ import com.sy.piaoliupin.utils.MediaUtil;
 import com.sy.piaoliupin.utils.RecorderUtil;
 import com.sy.piaoliupin.utils.TabToast;
 import com.sy.piaoliupin.viewfeatures.ChatView;
+import com.tencent.imsdk.TIMConversationType;
+import com.tencent.imsdk.TIMMessage;
+import com.tencent.imsdk.TIMMessageStatus;
+import com.tencent.imsdk.ext.message.TIMMessageDraft;
+import com.tencent.imsdk.ext.message.TIMMessageExt;
+import com.tencent.imsdk.ext.message.TIMMessageLocator;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatActivity extends FragmentActivity implements ChatView {
+public class ChatActivity extends Base_Activity implements ChatView, View.OnClickListener {
 
     private static final String TAG = "ChatActivity";
 
@@ -84,15 +84,18 @@ public class ChatActivity extends FragmentActivity implements ChatView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        setContentView(R.layout.activity_chat);
+
+        setBack(true);
+
         identify = getIntent().getStringExtra("identify");
         type = (TIMConversationType) getIntent().getSerializableExtra("type");
         presenter = new ChatPresenter(this, identify, type);
-        input =  findViewById(R.id.input_panel);
+        input = findViewById(R.id.input_panel);
         input.setChatView(this);
         adapter = new ChatAdapter(this, R.layout.item_message, messageList);
-        listView =  findViewById(R.id.list);
+        listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
         listView.setOnTouchListener(new View.OnTouchListener() {
@@ -125,45 +128,27 @@ public class ChatActivity extends FragmentActivity implements ChatView {
             }
         });
         registerForContextMenu(listView);
-        TemplateTitle title = findViewById(R.id.chat_title);
+
         switch (type) {
+            //个人聊天
             case C2C:
-                title.setMoreImg(R.drawable.btn_person);
+
+                setMenu(R.drawable.btn_person);
+                //判断是否是好友
                 if (FriendshipInfo.getInstance().isFriend(identify)) {
-                    title.setMoreImgAction(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(ChatActivity.this, ProfileActivity.class);
-                            intent.putExtra("identify", identify);
-                            startActivity(intent);
-                        }
-                    });
+
                     FriendProfile profile = FriendshipInfo.getInstance().getProfile(identify);
-                    title.setTitleText(titleStr = profile == null ? identify : profile.getName());
+                    setRTitle(titleStr = profile == null ? identify : profile.getName());
                 } else {
-                    title.setMoreImgAction(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent person = new Intent(ChatActivity.this, AddFriendActivity.class);
-                            person.putExtra("id", identify);
-                            person.putExtra("name", identify);
-                            startActivity(person);
-                        }
-                    });
-                    title.setTitleText(titleStr = identify);
+
+                    setRTitle(titleStr = identify);
                 }
                 break;
+            //群聊
             case Group:
-                title.setMoreImg(R.drawable.btn_group);
-                title.setMoreImgAction(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(ChatActivity.this, GroupProfileActivity.class);
-                        intent.putExtra("identify", identify);
-                        startActivity(intent);
-                    }
-                });
-                title.setTitleText(GroupInfo.getInstance().getGroupName(identify));
+                setMenu(R.drawable.btn_group);
+
+                setTitle(GroupInfo.getInstance().getGroupName(identify));
                 break;
 
         }
@@ -209,8 +194,7 @@ public class ChatActivity extends FragmentActivity implements ChatView {
                     CustomMessage.Type messageType = ((CustomMessage) mMessage).getType();
                     switch (messageType) {
                         case TYPING:
-                            TemplateTitle title =  findViewById(R.id.chat_title);
-                            title.setTitleText(getString(R.string.chat_typing));
+                            setTitle(getString(R.string.chat_typing));
                             handler.removeCallbacks(resetTitle);
                             handler.postDelayed(resetTitle, 3000);
                             break;
@@ -531,7 +515,6 @@ public class ChatActivity extends FragmentActivity implements ChatView {
                 presenter.sendMessage(message.getMessage());
             }
         }
-
     }
 
 
@@ -564,10 +547,46 @@ public class ChatActivity extends FragmentActivity implements ChatView {
     private Runnable resetTitle = new Runnable() {
         @Override
         public void run() {
-            TemplateTitle title = findViewById(R.id.chat_title);
-            title.setTitleText(titleStr);
+            setTitle(titleStr);
         }
     };
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.menu:
+                switch (type) {
+                    //个人聊天
+                    case C2C:
+
+                        //判断是否是好友
+                        if (FriendshipInfo.getInstance().isFriend(identify)) {
+
+                            Intent intent = new Intent(ChatActivity.this, ProfileActivity.class);
+                            intent.putExtra("identify", identify);
+                            startActivity(intent);
+
+                        } else {
+                            Intent person = new Intent(ChatActivity.this, AddFriendActivity.class);
+                            person.putExtra("id", identify);
+                            person.putExtra("name", identify);
+                            startActivity(person);
+
+                        }
+                        break;
+                    //群聊
+                    case Group:
+
+                        Intent intent = new Intent(ChatActivity.this, GroupProfileActivity.class);
+                        intent.putExtra("identify", identify);
+                        startActivity(intent);
+
+                        break;
+
+                }
+                break;
+
+        }
+    }
 }
