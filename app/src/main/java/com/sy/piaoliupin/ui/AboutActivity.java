@@ -1,27 +1,34 @@
 package com.sy.piaoliupin.ui;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.activity.Base_Activity;
 import com.tencent.imsdk.TIMLogLevel;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.qalsdk.QALSDKManager;
-import com.sy.piaoliupin.R;
 
 import tencent.tls.platform.TLSHelper;
 
 /**
- * 关于
+ * TODO：关于
  */
 
 public class AboutActivity extends Base_Activity {
     private static final String TAG = "AboutActivity";
+
+    public static void start(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context, AboutActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

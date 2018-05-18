@@ -1,5 +1,7 @@
 package com.sy.piaoliupin.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.CompoundButton;
@@ -15,10 +17,18 @@ public class MessageNotifySettingActivity extends Base_Activity {
     private String TAG = "MessageNotifySettingActivity";
     TIMOfflinePushSettings settings;
 
+    public static void start(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context,MessageNotifySettingActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_notify_setting);
+
+
 
         setTitle("消息提醒");
         setBack(true);

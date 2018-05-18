@@ -10,7 +10,6 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.huawei.android.pushagent.PushManager;
-import com.tencent.imsdk.TIMCallBack;
 import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.business.LoginBusiness;
 import com.sy.piaoliupin.model.FriendshipInfo;
@@ -18,11 +17,20 @@ import com.sy.piaoliupin.model.GroupInfo;
 import com.sy.piaoliupin.model.UserInfo;
 import com.sy.piaoliupin.service.TlsBusiness;
 import com.sy.piaoliupin.ui.SplashActivity;
+import com.sy.piaoliupin.utils.TabToast;
+import com.tencent.imsdk.TIMCallBack;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.List;
 
 public class DialogActivity extends Activity implements View.OnClickListener {
+    private static final String TAG = "DialogActivity";
+
+    public static void start(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context, DialogActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,7 @@ public class DialogActivity extends Activity implements View.OnClickListener {
                 LoginBusiness.loginIm(UserInfo.getInstance().getId(), UserInfo.getInstance().getUserSig(), new TIMCallBack() {
                     @Override
                     public void onError(int i, String s) {
-                        Toast.makeText(DialogActivity.this, getString(R.string.login_error), Toast.LENGTH_SHORT).show();
+                        TabToast.makeText(getString(R.string.login_error));
                         logout();
                     }
 

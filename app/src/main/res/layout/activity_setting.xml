@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_title_bar"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--消息提醒-->
+        <Button
+            android:id="@+id/setting_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0.5dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_in"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="消息提醒"
+            android:textSize="16sp" />
+
+        <!--清除缓存-->
+        <Button
+            android:id="@+id/setting_clean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0.5dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_in"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="清除缓存"
+            android:textSize="16sp" />
+
+
+
+        <!--帮助与反馈-->
+        <Button
+            android:id="@+id/setting_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_in"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="帮助与反馈"
+            android:textSize="16sp" />
+        <!--关于-->
+        <Button
+            android:id="@+id/setting_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0.5dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_in"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="关于"
+            android:textSize="16sp" />
+
+        <!--退出-->
+        <Button
+            android:id="@+id/setting_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_in"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="退出"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

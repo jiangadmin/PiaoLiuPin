@@ -180,7 +180,7 @@ public class Base_Activity extends FragmentActivity {
 
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) titlebar.getLayoutParams();
         //获取状态栏高度 加上 要设置的标题栏高度 等于 标题栏实际高度
-        layoutParams.height = ToolUtils.getStatusHeight() + ToolUtils.dp2px(48);
+        layoutParams.height = ToolUtils.getStatusHeight() + ToolUtils.dp2px(43);
         titlebar.setLayoutParams(layoutParams);
 
 

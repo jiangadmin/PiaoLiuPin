@@ -1,23 +1,28 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.sy.piaoliupin.activity.Base_Activity;
-import com.tencent.imsdk.TIMUserProfile;
-import com.tencent.imsdk.TIMValueCallBack;
-import com.tencent.imsdk.ext.sns.TIMFriendshipManagerExt;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.adapters.ProfileSummaryAdapter;
 import com.sy.piaoliupin.model.FriendProfile;
 import com.sy.piaoliupin.model.ProfileSummary;
 import com.sy.piaoliupin.utils.LogUtil;
+import com.tencent.imsdk.TIMUserProfile;
+import com.tencent.imsdk.TIMValueCallBack;
+import com.tencent.imsdk.ext.sns.TIMFriendshipManagerExt;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * TODO:黑名单
+ */
 
 public class BlackListActivity extends Base_Activity {
 
@@ -26,6 +31,12 @@ public class BlackListActivity extends Base_Activity {
     ProfileSummaryAdapter adapter;
     List<ProfileSummary> list = new ArrayList<>();
     ListView listView;
+
+    public static void start(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context, BlackListActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

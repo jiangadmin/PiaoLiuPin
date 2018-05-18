@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.sy.piaoliupin.utils.LogUtil;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
  * Created by dgy on 15/7/23.
  */
 public class QQLoginService {
+    private static final String TAG = "QQLoginService";
     // 授权结果常量定义
     private static final int AUTHORIZATION_SUCC = 1;            // 授权成功
     private static final int AUTHORIZATION_FAIL = 2;            // 授权失败
@@ -35,7 +37,7 @@ public class QQLoginService {
     private String SCOPE = "all"; // 所有权限
     private Callback callback;
 
-    public QQLoginService(Activity activity, ImageButton btn_hostQQLogin) {
+    public QQLoginService(Activity activity, View btn_hostQQLogin) {
         this.activity = activity;
         callback = new Callback() {
             @Override
@@ -83,6 +85,7 @@ public class QQLoginService {
     }
 
     private void onClickQQLogin() {
+        LogUtil.e(TAG,"QQ登录");
 //        if (!mTencent.isSessionValid()) {
         IUiListener listener = new IUiListener() {
             /** 授权失败的回调 */

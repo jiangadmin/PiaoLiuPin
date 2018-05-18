@@ -39,7 +39,7 @@ public class Base_Dialog extends Dialog {
         try {
             show();
         } catch (Exception e) {
-
+            LogUtil.e(TAG, e.getMessage());
         }
 
     }
@@ -68,6 +68,8 @@ public class Base_Dialog extends Dialog {
         }
 
         setContentView(R.layout.dialog_base);
+
+        initview();
 
     }
 

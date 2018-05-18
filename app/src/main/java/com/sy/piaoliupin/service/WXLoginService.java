@@ -15,7 +15,7 @@ public class WXLoginService {
     private IWXAPI iwxapi;
     private Context context;
 
-    public WXLoginService(Context context, ImageButton btn_wxlogin) {
+    public WXLoginService(Context context, View btn_wxlogin) {
         this.context = context;
 
         btn_wxlogin.setOnClickListener(new View.OnClickListener() {

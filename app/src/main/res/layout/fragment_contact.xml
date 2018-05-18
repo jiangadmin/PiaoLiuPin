@@ -1,20 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.sy.piaoliupin.ui.ContactFragment">
+    android:orientation="vertical"
+    tools:context="com.sy.piaoliupin.activity.main.ContactFragment">
 
-    <include layout="@layout/view_title_bar"/>
-
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:id="@+id/contact_antionbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:moreImg="@drawable/ic_add_more"
-        app:titleText="@string/home_contact_tab" />
+    <include layout="@layout/view_title_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"

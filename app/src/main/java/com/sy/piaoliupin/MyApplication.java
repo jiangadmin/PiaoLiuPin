@@ -3,6 +3,7 @@ package com.sy.piaoliupin;
 import android.app.Application;
 import android.content.Context;
 
+import com.sy.piaoliupin.servlet.GetMessage_Servlet;
 import com.tencent.imsdk.TIMGroupReceiveMessageOpt;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMOfflinePushListener;
@@ -41,6 +42,7 @@ public class MyApplication extends Application {
                 }
             });
         }
+
     }
 
     public static Context getContext() {

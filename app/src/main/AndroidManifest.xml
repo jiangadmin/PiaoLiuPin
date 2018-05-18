@@ -60,6 +60,12 @@
             android:name="com.tencent.rdm.uuid"
             android:value="83b3186d-0ef4-40e4-83ca-ced776b1ee1e" />
 
+        <!--引导页-->
+        <activity
+            android:name=".activity.welcome.Guide_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/StartTheme" />
+
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
@@ -70,6 +76,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--登录-->
+        <activity android:name=".activity.welcome.Login_Activity"
+            android:screenOrientation="portrait"/>
+
+        <!--设置-->
+        <activity
+            android:name=".activity.mine.Setting_Activity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.welcome.LoginForSMS_Activity"
@@ -105,7 +120,7 @@
             android:theme="@style/tencent_tls_ui_theme" />
 
         <activity
-            android:name=".activity.welcome.Login_Activity"
+            android:name=".activity.welcome.LoginForPWD_Activity"
             android:label="@string/tencent_tls_ui_title_activity_phone_pwd"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

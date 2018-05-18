@@ -1,20 +1,20 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.sy.piaoliupin.activity.Base_Activity;
-import com.tencent.imsdk.ext.sns.TIMFriendFutureItem;
-import com.tencent.imsdk.ext.sns.TIMFutureFriendType;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.adapters.FriendManageMessageAdapter;
 import com.sy.piaoliupin.model.FriendFuture;
 import com.sy.piaoliupin.presenter.FriendshipManagerPresenter;
 import com.sy.piaoliupin.viewfeatures.FriendshipMessageView;
+import com.tencent.imsdk.ext.sns.TIMFriendFutureItem;
+import com.tencent.imsdk.ext.sns.TIMFutureFriendType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,12 @@ public class FriendshipManageMessageActivity extends Base_Activity implements Fr
     private FriendManageMessageAdapter adapter;
     private final int FRIENDSHIP_REQ = 100;
     private int index;
+
+    public static void start(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context,FriendshipManageMessageActivity.class);
+        context.startActivity(intent);
+    }
 
 
     @Override

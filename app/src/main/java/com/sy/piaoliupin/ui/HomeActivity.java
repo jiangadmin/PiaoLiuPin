@@ -5,16 +5,18 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sy.piaoliupin.activity.Base_Activity;
+import com.sy.piaoliupin.activity.main.BottleFragment;
+import com.sy.piaoliupin.activity.main.ContactFragment;
+import com.sy.piaoliupin.activity.main.ConversationFragment;
+import com.sy.piaoliupin.activity.main.Mine_Fragment;
 import com.sy.piaoliupin.utils.TabToast;
 import com.sy.piaoliupin.utils.ToolUtils;
 import com.tencent.imsdk.TIMManager;
@@ -35,8 +37,8 @@ public class HomeActivity extends Base_Activity {
     private static final String TAG = "HomeActivity";
     private LayoutInflater layoutInflater;
     private FragmentTabHost mTabHost;
-    private final Class fragmentArray[] = {ConversationFragment.class,BottleFragment.class, ContactFragment.class, SettingFragment.class};
-    private int mTitleArray[] = {R.string.home_conversation_tab,R.string.home_bottle_tab, R.string.home_contact_tab, R.string.home_setting_tab};
+    private final Class fragmentArray[] = {ConversationFragment.class,BottleFragment.class, ContactFragment.class, Mine_Fragment.class};
+    private int mTitleArray[] = {R.string.home_conversation_tab,R.string.home_bottle_tab, R.string.home_contact_tab, R.string.home_mine_tab};
     private int mImageViewArray[] = {R.drawable.tab_conversation,R.drawable.tab_bottle, R.drawable.tab_contact, R.drawable.tab_setting};
     private String mTextviewArray[] = {"contact","bottle", "conversation", "setting"};
     private ImageView msgUnread;
@@ -48,10 +50,12 @@ public class HomeActivity extends Base_Activity {
         setContentView(R.layout.activity_home);
 
         ToolUtils.getMyUUID(this);
+
         setDarkStatusIcon(false);
+
         if (requestPermission()) {
             Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
-//            finish();
+            finish();
             startActivity(intent);
         } else {
             initView();
@@ -94,17 +98,6 @@ public class HomeActivity extends Base_Activity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void logout() {
-        TlsBusiness.logout(UserInfo.getInstance().getId());
-        UserInfo.getInstance().setId(null);
-        MessageEvent.getInstance().clear();
-        FriendshipInfo.getInstance().clear();
-        GroupInfo.getInstance().clear();
-        Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
-        finish();
-        startActivity(intent);
-
-    }
 
     /**
      * 设置未读tab显示
@@ -116,7 +109,6 @@ public class HomeActivity extends Base_Activity {
 
     private boolean requestPermission() {
         if (afterM()) {
-            final List<String> permissionsList = new ArrayList<>();
             if ((checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) ||
                     (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)) {
                 return true;
@@ -130,4 +122,8 @@ public class HomeActivity extends Base_Activity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
+    }
 }

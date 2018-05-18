@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context="com.sy.piaoliupin.ui.SettingFragment">
+    tools:context="com.sy.piaoliupin.activity.main.Mine_Fragment">
 
     <include layout="@layout/view_title_bar" />
 

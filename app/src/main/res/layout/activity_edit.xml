@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/background_gray4"
     android:layout_height="match_parent"
-    tools:context="com.sy.piaoliupin.ui.EditActivity">
+    android:background="@color/background_gray4"
+    android:orientation="vertical"
+    tools:context=".ui.EditActivity">
 
-    <com.sy.piaoliupin.ui.TemplateTitle
-        android:id="@+id/editTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:canBack="true"
-        app:moreText="确定"
-        app:titleText="@string/profile_detail" />
+    <include layout="@layout/view_title_bar" />
 
     <EditText
         android:id="@+id/editContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTitle"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:textCursorDrawable="@color/black" />
-</RelativeLayout>
+</LinearLayout>

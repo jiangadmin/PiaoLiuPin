@@ -41,7 +41,7 @@ public class LoginForSMS_Activity extends Base_Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_for_sms);
 
         initview();
 

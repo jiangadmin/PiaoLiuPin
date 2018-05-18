@@ -3,6 +3,7 @@ package com.sy.piaoliupin.service;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -317,7 +318,7 @@ public class TLSService {
     /**
      * 代理QQ登录的接口
      */
-    public void initQQLoginService(Activity activity, ImageButton btn_qqlogin) {
+    public void initQQLoginService(Activity activity, View btn_qqlogin) {
         qqLoginService = new QQLoginService(activity, btn_qqlogin);
     }
 
@@ -339,7 +340,7 @@ public class TLSService {
     /**
      * 代理微信登录的接口
      */
-    public void initWXLoginService(Context context, ImageButton btn_wxlogin) {
+    public void initWXLoginService(Context context, View btn_wxlogin) {
         wxLoginService = new WXLoginService(context, btn_wxlogin);
     }
 

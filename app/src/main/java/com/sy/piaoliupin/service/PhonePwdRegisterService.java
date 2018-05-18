@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.sy.piaoliupin.activity.welcome.Login_Activity;
+import com.sy.piaoliupin.activity.welcome.LoginForPWD_Activity;
 import com.sy.piaoliupin.helper.Util;
 import com.sy.piaoliupin.utils.LogUtil;
 
@@ -113,7 +113,7 @@ public class PhonePwdRegisterService {
         @Override
         public void OnPwdRegVerifyCodeSuccess() {
             Util.showToast(context, "注册验证通过，准备获取号码");
-            Intent intent = new Intent(context, Login_Activity.class);
+            Intent intent = new Intent(context, LoginForPWD_Activity.class);
             intent.putExtra(Constants.EXTRA_PHONEPWD_REG_RST, Constants.PHONEPWD_REGISTER);
             intent.putExtra(Constants.COUNTRY_CODE, txt_countryCode.getText().toString());
             intent.putExtra(Constants.PHONE_NUMBER, txt_phoneNumber.getText().toString());

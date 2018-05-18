@@ -10,22 +10,18 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.huawei.android.pushagent.PushManager;
 import com.meizu.cloud.pushsdk.util.MzSystemUtils;
-import com.tencent.imsdk.TIMCallBack;
-import com.tencent.imsdk.TIMConnListener;
-import com.tencent.imsdk.TIMLogLevel;
-import com.tencent.imsdk.TIMManager;
-import com.tencent.imsdk.TIMUserConfig;
-import com.tencent.imsdk.TIMUserStatusListener;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
+import com.sy.piaoliupin.activity.welcome.Guide_Activity;
+import com.sy.piaoliupin.activity.welcome.LoginForPWD_Activity;
 import com.sy.piaoliupin.activity.welcome.Login_Activity;
 import com.sy.piaoliupin.business.InitBusiness;
 import com.sy.piaoliupin.business.LoginBusiness;
+import com.sy.piaoliupin.entity.Save_Key;
 import com.sy.piaoliupin.event.FriendshipEvent;
 import com.sy.piaoliupin.event.GroupEvent;
 import com.sy.piaoliupin.event.MessageEvent;
@@ -37,21 +33,27 @@ import com.sy.piaoliupin.service.TlsBusiness;
 import com.sy.piaoliupin.ui.customview.DialogActivity;
 import com.sy.piaoliupin.utils.LogUtil;
 import com.sy.piaoliupin.utils.PushUtil;
+import com.sy.piaoliupin.utils.SaveUtils;
+import com.sy.piaoliupin.utils.TabToast;
 import com.sy.piaoliupin.viewfeatures.SplashView;
+import com.tencent.imsdk.TIMCallBack;
+import com.tencent.imsdk.TIMLogLevel;
+import com.tencent.imsdk.TIMManager;
+import com.tencent.imsdk.TIMUserConfig;
+import com.tencent.imsdk.TIMUserStatusListener;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class SplashActivity extends FragmentActivity implements SplashView, TIMCallBack {
+public class SplashActivity extends Base_Activity implements SplashView, TIMCallBack, TIMUserStatusListener {
+    private static final String TAG = "SplashActivity";
 
     SplashPresenter presenter;
     private int LOGIN_RESULT_CODE = 100;
     private int GOOGLE_PLAY_RESULT_CODE = 200;
     private final int REQUEST_PHONE_PERMISSIONS = 0;
-    private static final String TAG = SplashActivity.class.getSimpleName();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +61,9 @@ public class SplashActivity extends FragmentActivity implements SplashView, TIMC
 
         clearNotification();
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+
         final List<String> permissionsList = new ArrayList<>();
-//        if (ConnectionResult.SUCCESS != GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)){
-//            Toast.makeText(this, getString(R.string.google_service_not_available), Toast.LENGTH_SHORT).show();
-////            GoogleApiAvailability.getInstance().getErrorDialog(this, GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this),
-////                    GOOGLE_PLAY_RESULT_CODE).show();
-//        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if ((checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED))
                 permissionsList.add(Manifest.permission.READ_PHONE_STATE);
@@ -91,41 +88,7 @@ public class SplashActivity extends FragmentActivity implements SplashView, TIMC
     public void navToHome() {
         //登录之前要初始化群和好友关系链缓存
         TIMUserConfig userConfig = new TIMUserConfig();
-        userConfig.setUserStatusListener(new TIMUserStatusListener() {
-            @Override
-            public void onForceOffline() {
-                LogUtil.d(TAG, "receive force offline message");
-                Intent intent = new Intent(SplashActivity.this, DialogActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onUserSigExpired() {
-                //票据过期，需要重新登录
-                new NotifyDialog().show(getString(R.string.tls_expire), getSupportFragmentManager(), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-//                            logout();
-                    }
-                });
-            }
-        })
-                .setConnectionListener(new TIMConnListener() {
-                    @Override
-                    public void onConnected() {
-                        LogUtil.i(TAG, "onConnected");
-                    }
-
-                    @Override
-                    public void onDisconnected(int code, String desc) {
-                        LogUtil.i(TAG, "onDisconnected");
-                    }
-
-                    @Override
-                    public void onWifiNeedAuth(String name) {
-                        LogUtil.i(TAG, "onWifiNeedAuth");
-                    }
-                });
+        userConfig.setUserStatusListener(this);
 
         //设置刷新监听
         RefreshEvent.getInstance().init(userConfig);
@@ -136,14 +99,38 @@ public class SplashActivity extends FragmentActivity implements SplashView, TIMC
         LoginBusiness.loginIm(UserInfo.getInstance().getId(), UserInfo.getInstance().getUserSig(), this);
     }
 
+    @Override
+    public void onForceOffline() {
+        DialogActivity.start(this);
+
+    }
+
+    @Override
+    public void onUserSigExpired() {
+        new NotifyDialog().show(getString(R.string.tls_expire), getSupportFragmentManager(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                            logout();
+            }
+        });
+
+    }
+
     /**
      * 跳转到登录界面
      */
     @Override
     public void navToLogin() {
-        Intent intent = new Intent(getApplicationContext(), Login_Activity.class);
-        startActivityForResult(intent, LOGIN_RESULT_CODE);
-        finish();
+
+        //判定首次启动
+        if (SaveUtils.getBoolean(Save_Key.S_跳过引导)) {
+            Intent intent = new Intent(getApplicationContext(), Login_Activity.class);
+            startActivityForResult(intent, LOGIN_RESULT_CODE);
+            finish();
+        }else {
+            Guide_Activity.start(this);
+            finish();
+        }
     }
 
     /**
@@ -172,11 +159,11 @@ public class SplashActivity extends FragmentActivity implements SplashView, TIMC
                 });
                 break;
             case 6200:
-                Toast.makeText(this, getString(R.string.login_error_timeout), Toast.LENGTH_SHORT).show();
+                TabToast.makeText(getString(R.string.login_error_timeout));
                 navToLogin();
                 break;
             default:
-                Toast.makeText(this, getString(R.string.login_error), Toast.LENGTH_SHORT).show();
+                TabToast.makeText(getString(R.string.login_error));
                 navToLogin();
                 break;
         }
@@ -206,14 +193,6 @@ public class SplashActivity extends FragmentActivity implements SplashView, TIMC
             com.meizu.cloud.pushsdk.PushManager.register(this, "112662", "3aaf89f8e13f43d2a4f97a703c6f65b3");
         }
 
-//        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-//        Log.d(TAG, "refreshed token: " + refreshedToken);
-//
-//        if(!TextUtils.isEmpty(refreshedToken)) {
-//            TIMOfflinePushToken param = new TIMOfflinePushToken(169, refreshedToken);
-//            TIMManager.getInstance().setOfflinePushToken(param, null);
-//        }
-//        MiPushClient.clearNotification(getApplicationContext());
         LogUtil.d(TAG, "imsdk env " + TIMManager.getInstance().getEnv());
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
@@ -289,9 +268,10 @@ public class SplashActivity extends FragmentActivity implements SplashView, TIMC
      * 清楚所有通知栏通知
      */
     private void clearNotification() {
-        NotificationManager notificationManager = (NotificationManager) this
-                .getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
         MiPushClient.clearNotification(getApplicationContext());
     }
+
+
 }

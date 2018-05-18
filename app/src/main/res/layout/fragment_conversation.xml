@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.sy.piaoliupin.ui.ConversationFragment">
+    tools:context="com.sy.piaoliupin.activity.main.ConversationFragment">
 
     <include layout="@layout/view_title_bar" />
 

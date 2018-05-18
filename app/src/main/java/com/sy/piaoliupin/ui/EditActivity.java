@@ -2,6 +2,7 @@ package com.sy.piaoliupin.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
@@ -9,13 +10,14 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.utils.TabToast;
 import com.tencent.imsdk.TIMCallBack;
 
 /**
  * 修改文本页面
  */
-public class EditActivity extends Activity implements TIMCallBack {
+public class EditActivity extends Base_Activity implements TIMCallBack, View.OnClickListener {
 
 
     private static EditInterface editAction;
@@ -113,14 +115,18 @@ public class EditActivity extends Activity implements TIMCallBack {
         if (lenLimit != 0) {
             input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(lenLimit)});
         }
-        TemplateTitle title = findViewById(R.id.editTitle);
-        title.setTitleText(getIntent().getStringExtra("title"));
-        title.setMoreTextAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editAction.onEdit(input.getText().toString(), EditActivity.this);
-            }
-        });
+        setBack(true);
+        setTitle(getIntent().getStringExtra("title"));
+        setMenu("确定", R.color.white);
+
+//        TemplateTitle title = findViewById(R.id.editTitle);
+//        title.setTitleText(getIntent().getStringExtra("title"));
+//        title.setMoreTextAction(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
 
     }
@@ -144,6 +150,15 @@ public class EditActivity extends Activity implements TIMCallBack {
         intent.putExtra(RETURN_EXTRA, input.getText().toString());
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.menu:
+                editAction.onEdit(input.getText().toString(), this);
+                break;
+        }
     }
 
     public interface EditInterface {
