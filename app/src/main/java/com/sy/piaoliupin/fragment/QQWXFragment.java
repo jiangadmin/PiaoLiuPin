@@ -78,8 +78,6 @@ public class QQWXFragment extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         tlsService.initGuestLoginService(activity, (ImageButton) view.findViewById(MResource.getIdByName(activity, "id", "btn_guestlogin")));
-        tlsService.initQQLoginService(activity, (ImageButton) view.findViewById(MResource.getIdByName(activity, "id", "btn_qqlogin")));
-        tlsService.initWXLoginService(activity, (ImageButton) view.findViewById(MResource.getIdByName(activity, "id", "btn_wxlogin")));
     }
 
 }

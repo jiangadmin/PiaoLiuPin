@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.helper.MResource;
@@ -48,15 +47,6 @@ public class IndependentLoginActivity extends Activity {
             initAccountLoginService();
         }
 
-        if ((login_way & Constants.QQ_LOGIN) != 0) { // QQ登录
-            tlsService.initQQLoginService(this,
-                    (ImageButton) findViewById(MResource.getIdByName(getApplication(), "id", "btn_qqlogin")));
-        }
-
-        if ((login_way & Constants.WX_LOGIN) != 0) { // 微信登录
-            tlsService.initWXLoginService(this,
-                    (ImageButton) findViewById(MResource.getIdByName(getApplication(), "id", "btn_wxlogin")));
-        }
 
         SharedPreferences settings = getSharedPreferences(Constants.TLS_SETTING, 0);
         SharedPreferences.Editor editor = settings.edit();
@@ -143,11 +133,6 @@ public class IndependentLoginActivity extends Activity {
             }
         }
 
-        if (requestCode == com.tencent.connect.common.Constants.REQUEST_API) {
-            if (resultCode == com.tencent.connect.common.Constants.RESULT_LOGIN) {
-                tlsService.onActivityResultForQQLogin(requestCode, requestCode, data);
-            }
-        }
 
     }
 

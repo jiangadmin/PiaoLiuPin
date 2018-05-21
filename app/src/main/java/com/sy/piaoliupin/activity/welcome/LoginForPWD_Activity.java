@@ -31,7 +31,7 @@ import tencent.tls.platform.TLSPwdResetListener;
 import tencent.tls.platform.TLSUserInfo;
 
 /**
- * 登录 手机号密码登录
+ * TODO:登录 手机号密码登录
  */
 
 public class LoginForPWD_Activity extends Base_Activity implements View.OnClickListener, TLSPwdLoginListener {
@@ -76,16 +76,6 @@ public class LoginForPWD_Activity extends Base_Activity implements View.OnClickL
 
         if ((login_way & Constants.PHONEPWD_LOGIN) != 0) { // 手机号密码登录
 //            initPhonePwdService();
-        }
-
-        if ((login_way & Constants.QQ_LOGIN) != 0) { // QQ登录
-            tlsService.initQQLoginService(this,
-                    findViewById(R.id.login_qq));
-        }
-
-        if ((login_way & Constants.WX_LOGIN) != 0) { // 微信登录
-            tlsService.initWXLoginService(this,
-                    findViewById(R.id.login_wechat));
         }
 
         SharedPreferences settings = getSharedPreferences(Constants.TLS_SETTING, 0);
@@ -174,11 +164,7 @@ public class LoginForPWD_Activity extends Base_Activity implements View.OnClickL
             setResult(RESULT_OK, data);
 //            finish();
         } else {
-            if (requestCode == com.tencent.connect.common.Constants.REQUEST_API) {
-                if (resultCode == com.tencent.connect.common.Constants.RESULT_LOGIN) {
-                    tlsService.onActivityResultForQQLogin(requestCode, requestCode, data);
-                }
-            }
+
         }
     }
 

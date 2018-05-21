@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -260,7 +262,6 @@ public class HttpUtil {
         return paramMap;
     }
 
-
     /**
      * post 请求 DES加密发送
      *
@@ -333,6 +334,65 @@ public class HttpUtil {
         } else {
             return null;
         }
+    }
+
+    /**
+     * PUT 请求
+     * @param httpUrl 请求地址
+     * @param map 请求内容
+     * @return
+     */
+    public String doPut(String httpUrl, Map map) {
+        String result = "";
+        URL url = null;
+        try {
+            url = new URL(httpUrl);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        if (url != null) {
+            try {
+                HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+                urlConn.setRequestProperty("content-type", "application/json");
+                urlConn.setDoInput(true);
+                urlConn.setDoOutput(true);
+                urlConn.setConnectTimeout(5 * 1000);
+                //设置请求方式为 PUT
+                urlConn.setRequestMethod("PUT");
+
+                urlConn.setRequestProperty("Content-Type", "application/json");
+                urlConn.setRequestProperty("Accept", "application/json");
+
+                urlConn.setRequestProperty("Charset", "UTF-8");
+
+
+                DataOutputStream dos = new DataOutputStream(urlConn.getOutputStream());
+                //写入请求参数
+                //这里要注意的是，在构造JSON字符串的时候，实践证明，最好不要使用单引号，而是用“\”进行转义，否则会报错
+                // 关于这一点在上面给出的参考文章里面有说明
+
+                dos.writeBytes(String.valueOf(ToolUtils.map2Json(map)));
+                dos.flush();
+                dos.close();
+
+                if (urlConn.getResponseCode() == 200) {
+                    InputStreamReader isr = new InputStreamReader(urlConn.getInputStream());
+                    BufferedReader br = new BufferedReader(isr);
+                    String inputLine = null;
+                    while ((inputLine = br.readLine()) != null) {
+                        result += inputLine;
+                    }
+                    isr.close();
+                    urlConn.disconnect();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+
     }
 
 }

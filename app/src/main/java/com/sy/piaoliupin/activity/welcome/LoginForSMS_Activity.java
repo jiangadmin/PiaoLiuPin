@@ -67,15 +67,6 @@ public class LoginForSMS_Activity extends Base_Activity {
             this.getContentResolver().registerContentObserver(Uri.parse("content://sms/"), true, smsContentObserver);*/
         }
 
-        if ((login_way & Constants.QQ_LOGIN) != 0) { // QQ登录
-            tlsService.initQQLoginService(this, (ImageButton) findViewById(R.id.btn_qqlogin));
-        }
-
-        if ((login_way & Constants.WX_LOGIN) != 0) { // 微信登录
-            tlsService.initWXLoginService(this,
-                    (ImageButton) findViewById(MResource.getIdByName(getApplication(), "id", "btn_wxlogin")));
-        }
-
         SharedPreferences settings = getSharedPreferences(Constants.TLS_SETTING, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt(Constants.SETTING_LOGIN_WAY, Constants.SMS_LOGIN);
@@ -168,11 +159,7 @@ public class LoginForSMS_Activity extends Base_Activity {
                 finish();
             }
         } else {
-            if (requestCode == com.tencent.connect.common.Constants.REQUEST_API) {
-                if (resultCode == com.tencent.connect.common.Constants.RESULT_LOGIN) {
-                    tlsService.onActivityResultForQQLogin(requestCode, requestCode, data);
-                }
-            }
+
         }
     }
 

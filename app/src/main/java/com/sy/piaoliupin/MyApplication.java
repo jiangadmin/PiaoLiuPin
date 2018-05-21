@@ -3,13 +3,13 @@ package com.sy.piaoliupin;
 import android.app.Application;
 import android.content.Context;
 
-import com.sy.piaoliupin.servlet.GetMessage_Servlet;
+import com.mob.MobSDK;
+import com.sy.piaoliupin.utils.Foreground;
 import com.tencent.imsdk.TIMGroupReceiveMessageOpt;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMOfflinePushListener;
 import com.tencent.imsdk.TIMOfflinePushNotification;
 import com.tencent.qalsdk.sdk.MsfSdkUtils;
-import com.sy.piaoliupin.utils.Foreground;
 
 
 /**
@@ -30,6 +30,10 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Foreground.init(this);
+
+        //初始化 mob
+        MobSDK.init(this);
+
         context = getApplicationContext();
         if (MsfSdkUtils.isMainProcess(this)) {
             TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {

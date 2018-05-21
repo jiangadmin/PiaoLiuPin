@@ -1,30 +1,43 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.utils.FileUtil;
 
 import java.io.IOException;
 
-public class ImageViewActivity extends Activity {
+/**
+ * TODO : 图片Activity
+ */
+
+public class ImageViewActivity extends Base_Activity {
+    private static final String TAG = "ImageViewActivity";
+
+    public static void start(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context, ImageViewActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_image_view);
-        RelativeLayout root = findViewById(R.id.root);
+
+        LinearLayout root = findViewById(R.id.root);
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

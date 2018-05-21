@@ -245,7 +245,9 @@ public class Base_Activity extends FragmentActivity {
      * @param objects 图片或者文字/文字或者颜色/颜色
      */
     public void setMenu(Object... objects) {
-        MENU = findViewById(R.id.menu);
+        if (MENU == null)
+            MENU = findViewById(R.id.menu);
+
         if (objects.length > 0) {
             MENU.setVisibility(View.VISIBLE);
             MENU.setOnClickListener((View.OnClickListener) this);

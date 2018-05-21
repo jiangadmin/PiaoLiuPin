@@ -1,8 +1,15 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.mob.sdk'
 
 android {
-
+    signingConfigs {
+        piaoliupin {
+            keyAlias 'piaoliupin'
+            keyPassword 'jiangadmin'
+            storeFile file('/Users/jiangyao/Documents/piaoliupin')
+            storePassword 'jiangadmin'
+        }
+    }
     packagingOptions {
         exclude '*.apk'
     }
@@ -13,10 +20,8 @@ android {
     lintOptions {
         abortOnError false
     }
-
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
-
     defaultConfig {
         applicationId "com.sy.piaoliupin"
         minSdkVersion 19
@@ -28,18 +33,47 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
             ndk {
                 // 需要将 x86 架构过滤掉
                 abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
             }
+            signingConfig signingConfigs.piaoliupin
         }
-
         debug {
-
             ndk {
                 // 需要将 x86 架构过滤掉
                 abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
+            }
+            signingConfig signingConfigs.piaoliupin
+        }
+    }
+}
+
+MobSDK {
+    appKey "25e56ce23ee18"
+    appSecret "567950619dda304f6d29debcbbba418f"
+
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            SinaWeibo {
+                appKey "568898243"
+                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+                callbackUri "http://www.sharesdk.cn"
+                shareByAppClient false
+            }
+            Wechat {
+                appId "wx4868b35061f87885"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
+            }
+            QQ {
+                appId "1106842163"
+                appKey "ZfC4aO8ieQXb5Fnz"
+            }
+            Facebook {
+                appKey "1412473428822331"
+                appSecret "a42f4f3f867dc947b9ed6020c2e93558"
+                callbackUri "https://mob.com"
             }
         }
     }
@@ -47,7 +81,6 @@ android {
 }
 
 dependencies {
-
     api fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     api project(':sdk')
@@ -58,10 +91,8 @@ dependencies {
     implementation 'com.android.support:support-annotations:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
-
     //Loading图
     implementation 'com.wang.avi:library:2.1.3'
 }
 
-//apply plugin: 'com.google.gms.google-services'
 

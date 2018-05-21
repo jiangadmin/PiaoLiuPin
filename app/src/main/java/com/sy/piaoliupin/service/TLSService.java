@@ -1,9 +1,6 @@
 package com.sy.piaoliupin.service;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,13 +30,12 @@ public class TLSService {
 
     private SmsLoginService smsLoginService;
     private SmsRegisterService smsRegisterService;
-    private QQLoginService qqLoginService;
-    private WXLoginService wxLoginService;
     private AccountLoginService accountLoginService;
     private AccountRegisterService accountRegisterService;
     private PhonePwdLoginService phonePwdLoginService;
     private PhonePwdRegisterService phonePwdRegisterService;
     private ResetPhonePwdService resetPhonePwdService;
+
     private static int lastErrno = -1;
 
     private static TLSService tlsService = null;
@@ -314,36 +310,6 @@ public class TLSService {
     public int TLSPwdResetVerifyCode(String code, TLSPwdResetListener listener) {
         return accountHelper.TLSPwdResetVerifyCode(code, listener);
     }
-
-    /**
-     * 代理QQ登录的接口
-     */
-    public void initQQLoginService(Activity activity, View btn_qqlogin) {
-        qqLoginService = new QQLoginService(activity, btn_qqlogin);
-    }
-
-    public boolean qqHasLogined() {
-        return qqLoginService.qqHasLogined();
-    }
-
-    public void onActivityResultForQQLogin(int requestCode, int resultCode, Intent data) {
-        qqLoginService.onActivityResult(requestCode, resultCode, data);
-    }
-
-    public void qqLogOut() {
-        try {
-            qqLoginService.qqLogout();
-        } catch (Exception e) {
-        }
-    }
-
-    /**
-     * 代理微信登录的接口
-     */
-    public void initWXLoginService(Context context, View btn_wxlogin) {
-        wxLoginService = new WXLoginService(context, btn_wxlogin);
-    }
-
 
     public interface RefreshUserSigListener extends TLSRefreshUserSigListener {
         public void onUserSigNotExist();
