@@ -55,6 +55,13 @@ public class SplashActivity extends Base_Activity implements SplashView, TIMCall
     private int GOOGLE_PLAY_RESULT_CODE = 200;
     private final int REQUEST_PHONE_PERMISSIONS = 0;
 
+
+    public static void start(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context,SplashActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

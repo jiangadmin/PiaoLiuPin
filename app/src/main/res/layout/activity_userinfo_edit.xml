@@ -113,72 +113,6 @@
 
             </RelativeLayout>
 
-            <!--生日-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_h">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:text="生日"
-                    android:textColor="@color/gray_6"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/userinfo_edit_birthday"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right|center_vertical"
-                    android:hint="选择日期"
-                    android:paddingRight="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/gray_cd" />
-            </RelativeLayout>
-
-            <!--星座-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_h">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:text="星座"
-                    android:textColor="@color/gray_6"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/userinfo_constellation"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right|center_vertical"
-                    android:hint="请输入生日"
-                    android:paddingRight="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/gray_cd" />
-            </RelativeLayout>
-
             <!--手机号-->
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -195,85 +129,8 @@
                     android:textColor="@color/gray_9"
                     android:textSize="16sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/userinfo_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="未填写"
-                    android:maxLength="16"
-                    android:paddingRight="15dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray_6"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/gray_cd" />
-            </RelativeLayout>
-
-            <!--微信号-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_h"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:text="微信号"
-                    android:textColor="@color/gray_9"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/userinfo_wechat"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="未填写"
-                    android:maxLength="16"
-                    android:paddingRight="15dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray_6"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/gray_cd" />
-
-            </RelativeLayout>
-
-            <!--QQ号-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_h"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:text="微信号"
-                    android:textColor="@color/gray_9"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/userinfo_qq"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"

@@ -1,6 +1,5 @@
 package com.sy.piaoliupin.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -9,21 +8,22 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.tencent.imsdk.TIMUserProfile;
 import com.sy.piaoliupin.R;
+import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.adapters.ProfileSummaryAdapter;
 import com.sy.piaoliupin.model.FriendProfile;
 import com.sy.piaoliupin.model.ProfileSummary;
 import com.sy.piaoliupin.presenter.FriendshipManagerPresenter;
 import com.sy.piaoliupin.viewfeatures.FriendInfoView;
+import com.tencent.imsdk.TIMUserProfile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 查找添加新朋友
+ * TODO:查找添加新朋友
  */
-public class SearchFriendActivity extends Activity implements FriendInfoView, AdapterView.OnItemClickListener, View.OnKeyListener {
+public class SearchFriendActivity extends Base_Activity implements FriendInfoView, AdapterView.OnItemClickListener, View.OnKeyListener {
 
     private final static String TAG = "SearchFriendActivity";
 
@@ -38,20 +38,17 @@ public class SearchFriendActivity extends Activity implements FriendInfoView, Ad
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addnew);
-        mSearchInput = (EditText) findViewById(R.id.inputSearch);
-        mSearchList = (ListView) findViewById(R.id.list);
-        tvNoResult = (TextView) findViewById(R.id.noResult);
+
+        setTitle("查找好友");
+        setBack(true);
+
+        mSearchInput = findViewById(R.id.inputSearch);
+        mSearchList = findViewById(R.id.list);
+        tvNoResult = findViewById(R.id.noResult);
         adapter = new ProfileSummaryAdapter(this, R.layout.item_profile_summary, list);
         mSearchList.setAdapter(adapter);
         mSearchList.setOnItemClickListener(this);
         presenter = new FriendshipManagerPresenter(this);
-        TextView tvCancel = (TextView) findViewById(R.id.cancel);
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         mSearchInput.setOnKeyListener(this);
     }
 

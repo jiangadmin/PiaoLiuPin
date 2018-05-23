@@ -61,12 +61,27 @@ public class AccountLoginService {
         });
     }
 
+    public AccountLoginService(Context context,
+                               String txt_username,
+                               String txt_password) {
+        this.context = context;
+
+        tlsService = TLSService.getInstance();
+        pwdLoginListener = new PwdLoginListener();
+
+        username =txt_username;
+        password = txt_password;
+
+        tlsService.TLSPwdLogin(username, password, pwdLoginListener);
+
+    }
+
     class PwdLoginListener implements TLSPwdLoginListener {
         @Override
         public void OnPwdLoginSuccess(TLSUserInfo userInfo) {
             Util.showToast(context, "登录成功");
             TLSService.getInstance().setLastErrno(0);
-            AccountLoginService.this.jumpToSuccActivity();
+//            AccountLoginService.this.jumpToSuccActivity();
         }
 
         @Override

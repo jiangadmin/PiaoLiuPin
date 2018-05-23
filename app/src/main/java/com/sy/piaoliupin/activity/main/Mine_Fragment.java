@@ -12,21 +12,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.activity.mine.Setting_Activity;
-import com.sy.piaoliupin.business.LoginBusiness;
-import com.sy.piaoliupin.event.MessageEvent;
-import com.sy.piaoliupin.model.FriendshipInfo;
-import com.sy.piaoliupin.model.GroupInfo;
-import com.sy.piaoliupin.model.UserInfo;
+import com.sy.piaoliupin.dialog.FriendShip_Dialog;
+import com.sy.piaoliupin.entity.Save_Key;
 import com.sy.piaoliupin.presenter.FriendshipManagerPresenter;
-import com.sy.piaoliupin.service.TlsBusiness;
-import com.sy.piaoliupin.ui.AboutActivity;
 import com.sy.piaoliupin.ui.BlackListActivity;
+import com.sy.piaoliupin.ui.CircleImageView;
 import com.sy.piaoliupin.ui.EditActivity;
-import com.sy.piaoliupin.ui.HomeActivity;
 import com.sy.piaoliupin.ui.ListPickerDialog;
-import com.sy.piaoliupin.ui.MessageNotifySettingActivity;
+import com.sy.piaoliupin.utils.SaveUtils;
 import com.sy.piaoliupin.utils.TabToast;
 import com.sy.piaoliupin.viewfeatures.FriendInfoView;
 import com.tencent.imsdk.TIMCallBack;
@@ -58,12 +54,9 @@ public class Mine_Fragment extends Base_Fragment implements FriendInfoView, View
 
     ImageView sex;
 
-    Button  friendConfirm, blackList, setting;
+    Button friendConfirm, blackList, setting;
 
-
-    public Mine_Fragment() {
-        // Required empty public constructor
-    }
+    CircleImageView head;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,19 +73,29 @@ public class Mine_Fragment extends Base_Fragment implements FriendInfoView, View
             friendshipManagerPresenter.getMyProfile();
 
             allowTypeContent = new HashMap<>();
-            allowTypeContent.put(getString(R.string.friend_allow_all), TIMFriendAllowType.TIM_FRIEND_ALLOW_ANY);
             allowTypeContent.put(getString(R.string.friend_need_confirm), TIMFriendAllowType.TIM_FRIEND_NEED_CONFIRM);
             allowTypeContent.put(getString(R.string.friend_refuse_all), TIMFriendAllowType.TIM_FRIEND_DENY_ANY);
+            allowTypeContent.put(getString(R.string.friend_allow_all), TIMFriendAllowType.TIM_FRIEND_ALLOW_ANY);
             stringList = allowTypeContent.keySet().toArray(new String[allowTypeContent.size()]);
 
         }
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Glide.with(this).load(SaveUtils.getString(Save_Key.S_头像)).into(head);
+        id.setText(SaveUtils.getString(Save_Key.UID));
+        nickname.setText(SaveUtils.getString(Save_Key.S_昵称));
+        sex.setImageResource(SaveUtils.getString(Save_Key.S_性别).equals("男") ? R.drawable.ic_boy : R.drawable.ic_girl);
+    }
+
     /**
      * 初始化控件
      */
     private void initview() {
+        head = view.findViewById(R.id.mine_head);
         mine_info = view.findViewById(R.id.mine_info);
         id = view.findViewById(R.id.idtext);
 
@@ -165,22 +168,9 @@ public class Mine_Fragment extends Base_Fragment implements FriendInfoView, View
 
             //好友申请
             case R.id.mine_friend_Confirm:
-                new ListPickerDialog().show(stringList, getFragmentManager(), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, final int which) {
-                        FriendshipManagerPresenter.setFriendAllowType(allowTypeContent.get(stringList[which]), new TIMCallBack() {
-                            @Override
-                            public void onError(int i, String s) {
-                                TabToast.makeText(getString(R.string.setting_friend_confirm_change_err));
-                            }
 
-                            @Override
-                            public void onSuccess() {
-//                                    friendConfirm.setContent(stringList[which]);
-                            }
-                        });
-                    }
-                });
+                new FriendShip_Dialog(getActivity());
+
                 break;
 
             //黑名单

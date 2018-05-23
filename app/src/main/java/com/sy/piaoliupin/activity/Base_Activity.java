@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sy.piaoliupin.MyApplication;
 import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.utils.LogUtil;
 import com.sy.piaoliupin.utils.ToolUtils;
@@ -38,8 +39,9 @@ public class Base_Activity extends FragmentActivity {
 
         setContentView(R.layout.view_title_bar);
 
-        //把状态栏设置为透明
+        MyApplication.addActivity(this);
 
+        //把状态栏设置为透明
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
@@ -245,7 +247,6 @@ public class Base_Activity extends FragmentActivity {
      * @param objects 图片或者文字/文字或者颜色/颜色
      */
     public void setMenu(Object... objects) {
-        if (MENU == null)
             MENU = findViewById(R.id.menu);
 
         if (objects.length > 0) {

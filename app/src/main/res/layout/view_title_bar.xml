@@ -45,7 +45,7 @@
             android:drawablePadding="5dp"
             android:gravity="center"
             android:minWidth="20dp"
-            android:textColor="#9D9D9D"
+            android:textColor="@color/white"
             android:textSize="14sp"
             android:visibility="gone"
             tools:ignore="RtlHardcoded" />

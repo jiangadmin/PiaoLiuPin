@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sy.piaoliupin.MyApplication;
 import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.dialog.Loading;
 import com.sy.piaoliupin.entity.Banner_Entity;
+import com.sy.piaoliupin.servlet.Register_Servlet;
 import com.sy.piaoliupin.utils.TabToast;
 import com.sy.piaoliupin.view.ImageCycleView;
 
@@ -32,18 +35,8 @@ public class UserInfo_Activity extends Base_Activity implements View.OnClickList
 
     ImageCycleView imageCycleView;
     ImageButton edit;
-    TextView nickName, city, sextv, birthday;
+    TextView nickName, city, sextv,phone;
 
-    public static String areacode;
-
-    static String sex = "m";//m：男 f:女
-
-    int jobid;
-
-    public boolean isfrist; //判断是否是第一次
-
-    public static List<String> headurls;
-    public String likes;
 
     public static void start(Context context) {
         Intent intent = new Intent();
@@ -56,8 +49,7 @@ public class UserInfo_Activity extends Base_Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo_edit);
 
-        setTitle("修改个人信息");
-        setBack(true);
+        setTitle("个人资料");
         setMenu("确定");
 
         initview();
@@ -72,30 +64,50 @@ public class UserInfo_Activity extends Base_Activity implements View.OnClickList
         nickName = findViewById(R.id.userinfo_nickname);
         city = findViewById(R.id.userinfo_edit_city);
         sextv = findViewById(R.id.userinfo_edit_sex);
-        birthday = findViewById(R.id.userinfo_edit_birthday);
+        phone = findViewById(R.id.userinfo_phone);
 
         initDatePicker();
 
-    }
-
-    @Override
-    protected void onResume() {
-
-        Loading.show(this, "加载中");
-
-        super.onResume();
     }
 
     protected void initeven() {
         edit.setOnClickListener(this);
         city.setOnClickListener(this);
         sextv.setOnClickListener(this);
-        birthday.setOnClickListener(this);
+
+
+        nickName.setText(MyApplication.userInfo.getNickname());
+        city.setText(MyApplication.userInfo.getProvince() + "-" + MyApplication.userInfo.getCity());
+        sextv.setText(MyApplication.userInfo.getGender());
+        phone.setText(MyApplication.userInfo.getPhone());
+
+        Banner_Entity.DBean dBean = new Banner_Entity.DBean();
+        dBean.setPicUrl(MyApplication.userInfo.getFigureurl());
+        beans.add(dBean);
+
+        imageCycleView.setBeans(beans, new ImageCycleView.Listener() {
+            @Override
+            public void displayImage(String imageURL, ImageView imageView) {
+
+            }
+
+            @Override
+            public void onImageClick(Banner_Entity.DBean bean, View imageView) {
+
+            }
+        });
+
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.menu:
+
+                new Register_Servlet().execute();
+
+                break;
             case R.id.userinfo_edit_edit:
 //                IMUserInfoImgActivity.start(this, headurls, false);
                 break;
@@ -106,28 +118,8 @@ public class UserInfo_Activity extends Base_Activity implements View.OnClickList
 //                new ChooseSex_Dialog(this).show();
                 break;
 
-            case R.id.userinfo_edit_birthday:
-
-
-                break;
         }
     }
-
-    /**
-     * 性别选择回传
-     *
-     * @param sext
-     */
-    public void setSex(String sext) {
-        if (sext.equals("男")) {
-            sex = "m";
-        }
-        if (sext.equals("女")) {
-            sex = "f";
-        }
-        sextv.setText(sext);
-    }
-
 
     private void initDatePicker() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
@@ -136,28 +128,11 @@ public class UserInfo_Activity extends Base_Activity implements View.OnClickList
 
     }
 
-
     public void Submit() {
 
         //昵称
         if (TextUtils.isEmpty(nickName.getText().toString())) {
             TabToast.makeText("请填写昵称");
-            return;
-        }
-
-        if ("点击选择日期".equals(birthday.getText().toString())) {
-            TabToast.makeText("请填写生日");
-            return;
-        }
-
-        if ("点击选择位置".equals(city.getText().toString())) {
-            TabToast.makeText("请设长居地");
-            return;
-        }
-
-
-        if (TextUtils.isEmpty(areacode)) {
-            TabToast.makeText("请设长居地");
             return;
         }
 

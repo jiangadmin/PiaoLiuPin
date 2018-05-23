@@ -3,6 +3,8 @@ package com.sy.piaoliupin.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.sy.piaoliupin.entity.Save_Key;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -60,6 +62,9 @@ public class HttpUtil {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
+            if (!TextUtils.isEmpty(SaveUtils.getString(Save_Key.S_校验))){
+                conn.setRequestProperty("token",SaveUtils.getString(Save_Key.S_校验));
+            }
             LogUtil.e(TAG, "网页结果：" + conn.getResponseCode());
             if (conn.getResponseCode() == 200) {
                 is = conn.getInputStream();
@@ -209,6 +214,10 @@ public class HttpUtil {
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+
+//            conn.setRequestProperty("Content-Type", "application/json");
+//            conn.setRequestProperty("Accept", "application/json");
+//            conn.setRequestProperty("Charset", "UTF-8");
             //超时时间
             conn.setReadTimeout(TIMEOUT_IN_MILLIONS);
             conn.setConnectTimeout(TIMEOUT_IN_MILLIONS);
@@ -342,7 +351,7 @@ public class HttpUtil {
      * @param map 请求内容
      * @return
      */
-    public String doPut(String httpUrl, Map map) {
+    public static String doPut(String httpUrl, Map map) {
         String result = "";
         URL url = null;
         try {
@@ -364,7 +373,6 @@ public class HttpUtil {
                 urlConn.setRequestProperty("Accept", "application/json");
 
                 urlConn.setRequestProperty("Charset", "UTF-8");
-
 
                 DataOutputStream dos = new DataOutputStream(urlConn.getOutputStream());
                 //写入请求参数

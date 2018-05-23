@@ -8,7 +8,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
+import android.support.v7.widget.AppCompatEditText;
 
 import com.sy.piaoliupin.R;
 
@@ -17,7 +17,7 @@ import com.sy.piaoliupin.R;
  * 来源：http://blog.csdn.net/xiaanming/article/details/11066685
  * 实现带清除功能的输入框控件，仿IOS的输入框
  */
-public class EditTextWithClearButton extends EditText implements
+public class EditTextWithClearButton extends AppCompatEditText implements
         View.OnFocusChangeListener, TextWatcher {
 
     private Drawable mClearDrawable;    // 删除按钮的引用

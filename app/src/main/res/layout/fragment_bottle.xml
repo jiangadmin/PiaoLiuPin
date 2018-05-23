@@ -13,18 +13,28 @@
         android:layout_height="match_parent"
         android:background="@color/btn_blue">
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="捞瓶子" />
+            android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="捡瓶子" />
+            <Button
+                android:id="@+id/bottle_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="扔瓶子" />
+
+            <Button
+                android:id="@+id/bottle_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="捞瓶子" />
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 

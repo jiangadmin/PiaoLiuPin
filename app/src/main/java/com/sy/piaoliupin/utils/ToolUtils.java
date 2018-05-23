@@ -384,9 +384,14 @@ public class ToolUtils {
         }
     }
 
-    public static String getMyUUID(Context context){
 
-        final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    /**
+     * 获取设备UUID
+     * @return
+     */
+    public static String getMyUUID(){
+
+        final TelephonyManager tm = (TelephonyManager) MyApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
 
         final String tmDevice, tmSerial, tmPhone, androidId;
 
@@ -394,13 +399,11 @@ public class ToolUtils {
 
         tmSerial = "" + tm.getSimSerialNumber();
 
-        androidId = "" + android.provider.Settings.Secure.getString(context.getContentResolver(),android.provider.Settings.Secure.ANDROID_ID);
+        androidId = "" + android.provider.Settings.Secure.getString(MyApplication.getInstance().getContentResolver(),android.provider.Settings.Secure.ANDROID_ID);
 
         UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
 
         String uniqueId = deviceUuid.toString();
-
-        LogUtil.e("debug","uuid="+uniqueId);
 
         return uniqueId;
 

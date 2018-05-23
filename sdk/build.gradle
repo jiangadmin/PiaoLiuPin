@@ -36,5 +36,4 @@ dependencies {
     api files('libs/txrtmpsdk.jar')
     api files('libs/imsdk_ugc_ext.jar')
 
-
 }

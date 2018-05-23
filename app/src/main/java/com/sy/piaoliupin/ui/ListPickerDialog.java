@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentManager;
  */
 public class ListPickerDialog extends DialogFragment {
 
-
     String[] list;
     String tag = "listPicker";
     DialogInterface.OnClickListener listener;
@@ -23,7 +22,6 @@ public class ListPickerDialog extends DialogFragment {
         this.listener = listener;
         show(fm, tag);
     }
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

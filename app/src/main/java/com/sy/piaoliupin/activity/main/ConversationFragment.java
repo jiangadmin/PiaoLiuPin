@@ -65,11 +65,6 @@ public class ConversationFragment extends Base_Fragment implements ConversationV
     private GroupManageConversation groupManageConversation;
 
 
-    public ConversationFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -131,9 +126,6 @@ public class ConversationFragment extends Base_Fragment implements ConversationV
 
         setTitle(view,"会话");
     }
-
-
-
 
     /**
      * 更新最新消息显示

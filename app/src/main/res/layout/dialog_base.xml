@@ -2,18 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_gray4"
-
     android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/dialog_dismis"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"

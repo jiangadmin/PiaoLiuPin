@@ -10,6 +10,6 @@ package com.sy.piaoliupin.entity;
 public class Const {
 
     public static String URl = "http://s.xhplpz.com/v1/";
-    public static String URL = "http://feekrtest.free.ngrok.cc/feekr_api/";
+    public static String API = "http://api.syplp.com/";
 
 }
