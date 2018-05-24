@@ -54,4 +54,9 @@ public class Save_Key {
      * 密码
      */
     public static String S_密码 = "password";
+
+    /**
+     * 登录
+     */
+    public static String S_登录 = "islogin";
 }

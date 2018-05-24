@@ -81,24 +81,23 @@ public class Login_Servlet extends AsyncTask<String, Integer, Login_Entity> {
 
                 SaveUtils.setString(Save_Key.UID, entity.getUid());
                 SaveUtils.setString(Save_Key.S_校验, entity.getAccess_token());
-                SaveUtils.setString(Save_Key.S_密码, entity.getPassword());
+                SaveUtils.setString(Save_Key.S_密码, entity.getUsersig());
 
-                new AccountLoginService(activity,"admin" + entity.getUid(), "admin" + entity.getUid());
+                //腾讯IM用户名密码登录
+                TIMManager.getInstance().login( entity.getUid(), entity.getUsersig(), new TIMCallBack() {
 
-//                //腾讯IM用户名密码登录
-//                TIMManager.getInstance().login("admin" + entity.getUid(), "admin" + entity.getUid(), new TIMCallBack() {
-//
-//                    @Override
-//                    public void onError(int i, String s) {
-//                        LogUtil.e(TAG, s);
-//                    }
-//
-//                    @Override
-//                    public void onSuccess() {
+                    @Override
+                    public void onError(int i, String s) {
+                        LogUtil.e(TAG, s);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        SaveUtils.setBoolean(Save_Key.S_登录,true);
                         HomeActivity.start(activity);
                         MyApplication.finishActivity(activity);
-//                    }
-//                });
+                    }
+                });
 
                 break;
             //未注册

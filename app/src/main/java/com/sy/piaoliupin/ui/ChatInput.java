@@ -37,10 +37,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 聊天界面输入控件
+ * TODO:聊天界面输入控件
  */
 public class ChatInput extends RelativeLayout implements TextWatcher, View.OnClickListener {
-
     private static final String TAG = "ChatInput";
 
     private ImageButton btnAdd, btnSend, btnVoice, btnKeyboard, btnEmotion;
@@ -53,13 +52,11 @@ public class ChatInput extends RelativeLayout implements TextWatcher, View.OnCli
     private LinearLayout emoticonPanel;
     private final int REQUEST_CODE_ASK_PERMISSIONS = 100;
 
-
     public ChatInput(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.chat_input, this);
         initView();
     }
-
 
     private void initView() {
         textPanel = findViewById(R.id.text_panel);

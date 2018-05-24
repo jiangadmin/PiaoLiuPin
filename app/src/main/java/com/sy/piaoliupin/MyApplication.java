@@ -47,6 +47,9 @@ public class MyApplication extends Application {
         //初始化 mob
         MobSDK.init(this);
 
+        //
+        TIMManager.getInstance();
+
         userInfo = new UserInfo();
 
         context = getApplicationContext();

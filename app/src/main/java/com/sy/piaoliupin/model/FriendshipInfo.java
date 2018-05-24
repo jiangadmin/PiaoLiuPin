@@ -83,6 +83,7 @@ public class FriendshipInfo extends Observable implements Observer {
         groups.clear();
         friends.clear();
         LogUtil.d(TAG, "get friendship info id :" + UserInfo.getInstance().getId());
+
         List<TIMFriendGroup> timFriendGroups = TIMFriendshipProxy.getInstance().getFriendsByGroups(null);
         if (timFriendGroups == null) return;
         for (TIMFriendGroup group : timFriendGroups) {

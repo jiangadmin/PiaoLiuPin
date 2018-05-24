@@ -96,29 +96,53 @@
     </LinearLayout>
 
     <LinearLayout
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:id="@+id/morePanel"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:background="@color/background_gray1"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/line" />
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
+            android:layout_height="wrap_content">
 
+            <!--拍摄-->
+            <LinearLayout
+                android:id="@+id/btn_photo"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_photo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/chat_photo"
+                    android:textColor="@color/text_gray1" />
+            </LinearLayout>
+
+            <!--图片-->
             <LinearLayout
                 android:id="@+id/btn_image"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="40dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -135,33 +159,12 @@
                     android:textColor="@color/text_gray1" />
             </LinearLayout>
 
+            <!--小视频-->
             <LinearLayout
-                android:id="@+id/btn_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/ic_photography" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/chat_photo"
-                    android:textColor="@color/text_gray1" />
-            </LinearLayout>
-
-            <LinearLayout
+                android:layout_weight="1"
                 android:id="@+id/btn_video"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="40dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -177,19 +180,13 @@
                     android:text="@string/chat_video"
                     android:textColor="@color/text_gray1" />
             </LinearLayout>
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
-
+            <!--文件-->
             <LinearLayout
+                android:layout_weight="1"
                 android:id="@+id/btn_file"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="40dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -205,7 +202,31 @@
                     android:text="@string/chat_file"
                     android:textColor="@color/text_gray1" />
             </LinearLayout>
-        </RelativeLayout>
+
+            <!--礼物-->
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/btn_gift"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:src="@drawable/ic_gift" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="礼物"
+                    android:textColor="@color/text_gray1" />
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

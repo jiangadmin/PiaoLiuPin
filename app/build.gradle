@@ -63,8 +63,8 @@ MobSDK {
                 shareByAppClient false
             }
             Wechat {
-                appId "wx4868b35061f87885"
-                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                appId "wx987316d1f1e0eac4"
+                appSecret "8203310c1f31d686b6ec4a9e92abcde5"
             }
             QQ {
                 appId "1106842163"

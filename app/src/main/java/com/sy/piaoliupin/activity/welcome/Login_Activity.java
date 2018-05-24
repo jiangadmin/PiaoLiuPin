@@ -13,12 +13,10 @@ import com.sy.piaoliupin.R;
 import com.sy.piaoliupin.activity.Base_Activity;
 import com.sy.piaoliupin.dialog.Loading;
 import com.sy.piaoliupin.entity.Save_Key;
-import com.sy.piaoliupin.servlet.GetUserInfo_Servlet;
 import com.sy.piaoliupin.servlet.Login_Servlet;
 import com.sy.piaoliupin.utils.LogUtil;
 import com.sy.piaoliupin.utils.SaveUtils;
 import com.sy.piaoliupin.utils.TabToast;
-import com.tencent.imsdk.TIMManager;
 
 import java.util.HashMap;
 
@@ -40,7 +38,6 @@ public class Login_Activity extends Base_Activity implements View.OnClickListene
 
     LinearLayout wechat, qq;
 
-
     String loginType;
 
     public static void start(Context context) {
@@ -58,7 +55,7 @@ public class Login_Activity extends Base_Activity implements View.OnClickListene
         initview();
 
         //判定是否有登录数据
-        if (!TextUtils.isEmpty(SaveUtils.getString(Save_Key.OPENID))) {
+        if (!TextUtils.isEmpty(SaveUtils.getString(Save_Key.OPENID)) && SaveUtils.getBoolean(Save_Key.S_登录)) {
             Loading.show(this, "登录中");
 
             new Login_Servlet(this).execute(SaveUtils.getString(Save_Key.S_登录类型), SaveUtils.getString(Save_Key.OPENID));
@@ -79,7 +76,7 @@ public class Login_Activity extends Base_Activity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        Loading.show(this, "登录中");
+        Loading.show(this, "启动中");
         switch (view.getId()) {
             case R.id.login_wechat:
                 loginType = "1";
@@ -125,10 +122,16 @@ public class Login_Activity extends Base_Activity implements View.OnClickListene
         MyApplication.userInfo.setLogintype(loginType);
         MyApplication.userInfo.setOpenid(platform.getDb().getUserId());
         MyApplication.userInfo.setNickname(String.valueOf(hashMap.get("nickname")));
-        MyApplication.userInfo.setGender((String) hashMap.get("gender"));
         MyApplication.userInfo.setProvince((String) hashMap.get("province"));
         MyApplication.userInfo.setCity((String) hashMap.get("city"));
-        MyApplication.userInfo.setFigureurl((String) hashMap.get("figureurl_qq_2"));
+        //微信
+        if ("1".equals(loginType)) {
+            MyApplication.userInfo.setFigureurl((String) hashMap.get("headimgurl"));
+            MyApplication.userInfo.setGender((hashMap.get("sex")).equals("男") ? "1" : "2");
+        } else {
+            MyApplication.userInfo.setFigureurl((String) hashMap.get("figureurl_qq_2"));
+            MyApplication.userInfo.setGender((String) hashMap.get("gender"));
+        }
 
         new Login_Servlet(this).execute(loginType, platform.getDb().getUserId());
 
@@ -137,17 +140,19 @@ public class Login_Activity extends Base_Activity implements View.OnClickListene
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
         LogUtil.e(TAG, throwable.getMessage());
+        Loading.dismiss();
 
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
         LogUtil.e(TAG, "onCancel");
-
+        Loading.dismiss();
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+        Loading.dismiss();
 
     }
 }

@@ -18,7 +18,7 @@ import com.tencent.imsdk.TIMCallBack;
  * 修改文本页面
  */
 public class EditActivity extends Base_Activity implements TIMCallBack, View.OnClickListener {
-
+    private static final String TAG = "EditActivity";
 
     private static EditInterface editAction;
     public final static String RETURN_EXTRA = "result";

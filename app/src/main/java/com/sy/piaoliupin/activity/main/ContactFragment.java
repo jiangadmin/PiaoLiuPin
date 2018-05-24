@@ -3,6 +3,7 @@ package com.sy.piaoliupin.activity.main;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,12 @@ import com.sy.piaoliupin.ui.ManageFriendGroupActivity;
 import com.sy.piaoliupin.ui.SearchFriendActivity;
 import com.sy.piaoliupin.ui.SearchGroupActivity;
 import com.sy.piaoliupin.ui.TemplateTitle;
+import com.sy.piaoliupin.utils.LogUtil;
+import com.tencent.imsdk.TIMManager;
+import com.tencent.imsdk.TIMUserProfile;
+import com.tencent.imsdk.TIMValueCallBack;
+import com.tencent.imsdk.ext.sns.TIMAddFriendRequest;
+import com.tencent.imsdk.ext.sns.TIMFriendshipManagerExt;
 
 import java.util.List;
 import java.util.Map;
@@ -34,7 +41,8 @@ import java.util.Observer;
 /**
  * 联系人界面
  */
-public class ContactFragment extends Base_Fragment implements View.OnClickListener, Observer {
+public class ContactFragment extends Base_Fragment implements View.OnClickListener, Observer, TIMValueCallBack<List<TIMUserProfile>> {
+    private static final String TAG = "ContactFragment";
 
     private View view;
     private ExpandGroupListAdapter mGroupListAdapter;
@@ -47,6 +55,7 @@ public class ContactFragment extends Base_Fragment implements View.OnClickListen
 
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_contact, container, false);
+
             mGroupListView = view.findViewById(R.id.groupList);
             mNewFriBtn = view.findViewById(R.id.btnNewFriend);
             mNewFriBtn.setOnClickListener(this);
@@ -57,7 +66,12 @@ public class ContactFragment extends Base_Fragment implements View.OnClickListen
             mPrivateGroupBtn = view.findViewById(R.id.btnPrivateGroup);
             mPrivateGroupBtn.setOnClickListener(this);
 
+            //获取好友列表
+            TIMFriendshipManagerExt.getInstance().getFriendList(this);
+
             friends = FriendshipInfo.getInstance().getFriends();
+            LogUtil.e(TAG,"LoginUser:"+ TIMManager.getInstance().getLoginUser());
+            LogUtil.e(TAG,"好友数："+friends.size());
             mGroupListAdapter = new ExpandGroupListAdapter(getActivity(), FriendshipInfo.getInstance().getGroups(), friends);
             mGroupListView.setAdapter(mGroupListAdapter);
             mGroupListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -168,6 +182,30 @@ public class ContactFragment extends Base_Fragment implements View.OnClickListen
     public void update(Observable observable, Object data) {
         if (observable instanceof FriendshipInfo) {
             mGroupListAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * 获取好友失败
+     * @param i
+     * @param s
+     */
+    @Override
+    public void onError(int i, String s) {
+        //错误码 code 和错误描述 desc，可用于定位请求失败原因
+        //错误码 code 列表请参见错误码表
+
+        LogUtil.e(TAG, "getFriendList failed: " +  i+ " desc");
+    }
+
+    /**
+     * 获取好友成功
+     * @param timUserProfiles
+     */
+    @Override
+    public void onSuccess(List<TIMUserProfile> timUserProfiles) {
+        for(TIMUserProfile res : timUserProfiles){
+            LogUtil.e(TAG,"identifier: " + res.getIdentifier() + " nickName: " + res.getNickName() + " remark: " + res.getRemark());
         }
     }
 }

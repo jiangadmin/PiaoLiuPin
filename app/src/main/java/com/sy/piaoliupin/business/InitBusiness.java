@@ -34,8 +34,7 @@ public class InitBusiness {
      */
     private static void initImsdk(Context context, int logLevel) {
         TIMSdkConfig config = new TIMSdkConfig(Constant.SDK_APPID);
-        config.enableLogPrint(true)
-                .setLogLevel(TIMLogLevel.values()[logLevel]);
+        config.enableLogPrint(true).setLogLevel(TIMLogLevel.values()[logLevel]);
         //初始化imsdk
         TIMManager.getInstance().init(context, config);
         //禁止服务器自动代替上报已读

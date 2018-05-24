@@ -15,7 +15,7 @@ public class Constants {
     public final static int CHECKCODE_LENGTH = 4;
 
     // 配置信息
-    public final static String TLS_SETTING = "jiang"; // 配置名
+    public final static String TLS_SETTING = "tencent.tls.ui.TLS_SETTING"; // 配置名
     public final static String SETTING_LOGIN_WAY = "tencent.tls.ui.SETTING_LOGIN_WAY"; // Key
 
     // 定义业务数据键值

@@ -50,6 +50,8 @@ public class BindPhone_Activity extends Base_Activity implements View.OnClickLis
 
         setMenu("绑定");
 
+        setBack(true);
+
         initview();
 
         initeven();

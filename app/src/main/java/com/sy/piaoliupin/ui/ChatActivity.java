@@ -50,6 +50,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TODO：聊天界面
+ */
 public class ChatActivity extends Base_Activity implements ChatView, View.OnClickListener {
 
     private static final String TAG = "ChatActivity";
@@ -72,14 +75,12 @@ public class ChatActivity extends Base_Activity implements ChatView, View.OnClic
     private String titleStr;
     private Handler handler = new Handler();
 
-
     public static void navToChat(Context context, String identify, TIMConversationType type) {
         Intent intent = new Intent(context, ChatActivity.class);
         intent.putExtra("identify", identify);
         intent.putExtra("type", type);
         context.startActivity(intent);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

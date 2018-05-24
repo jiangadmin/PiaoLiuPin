@@ -1,8 +1,5 @@
 package com.sy.piaoliupin.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 用户数据
  */

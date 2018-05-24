@@ -247,10 +247,15 @@ public class SplashActivity extends Base_Activity implements SplashView, TIMCall
         //初始化IMSDK
         InitBusiness.start(getApplicationContext(), loglvl);
         //初始化TLS
+
         TlsBusiness.init(getApplicationContext());
         String id = TLSService.getInstance().getLastUserIdentifier();
-        UserInfo.getInstance().setId(id);
-        UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
+
+//        UserInfo.getInstance().setId(id);
+//        UserInfo.getInstance().setUserSig(TLSService.getInstance().getUserSig(id));
+
+        UserInfo.getInstance().setId(SaveUtils.getString(Save_Key.UID));
+        UserInfo.getInstance().setUserSig(SaveUtils.getString(Save_Key.S_密码));
         presenter = new SplashPresenter(this);
         presenter.start();
     }
